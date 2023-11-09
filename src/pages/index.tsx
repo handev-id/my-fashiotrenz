@@ -220,7 +220,7 @@ export default function Home({ content }: any) {
 }
 
 export async function getServerSideProps() {
-  const response = await fetch("http://localhost:3000/api/get/content");
+  const response = await fetch("https://fashiotrendz.handev.my.id/api/get/content");
   const data = await response.json();
 
   return {
