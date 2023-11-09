@@ -1,0 +1,24 @@
+* {
+  scroll-behavior: smooth;
+}
+
+.banner-home {
+    background: rgb(7, 142, 118);
+        background: linear-gradient(120deg, rgba(7, 142, 118, 1) 0%, rgba(106, 187, 173, 1) 55%, rgba(255, 255, 255, 1) 55%);
+  }
+
+.overlay-category {
+    background: rgb(0, 0, 0);
+        background: linear-gradient(10deg, rgba(0, 0, 0, 0.9472163865546218) 0%, rgba(106, 187, 173, 0) 83%);
+}
+
+  @media screen and (max-width: 992px) {
+    .banner-home {
+            background: rgb(7, 142, 118);
+            background: linear-gradient(200deg, rgba(7, 142, 118, 1) 0%, rgba(106, 187, 173, 1) 55%, rgba(255, 255, 255, 1) 55%);
+        }
+  }
+
+  .banner {
+    color: rgba(0, 0, 0, 0.297);
+  }
