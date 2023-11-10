@@ -7,7 +7,7 @@ const MetaTag = () => {
         content="FashioTrendz Ecommerce indonesia handev.my.id"
       />
       <meta name="keyword" content="Fashio trendz" />
-      {/* 
+      
       <meta property="og:url" content="https://fashio-trendz.handev.my.id" />
       <meta property="og:type" content="website" />
       <meta property="og:title" content="FashioTrendz" />
@@ -28,7 +28,7 @@ const MetaTag = () => {
         name="twitter:description"
         content="FashioTrendz Ecommerce indonesia handev"
       />
-      <meta name="twitter:image" content="/thumbnail.png" /> */}
+      <meta name="twitter:image" content="/thumbnail.png" />
     </>
   );
 };
