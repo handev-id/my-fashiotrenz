@@ -4,7 +4,7 @@ const MetaTag = () => {
       <title>FashioTrendz Indonesia</title>
       <meta
         name="description"
-        content="FashioTrendz Ecommerce indonesia handev.my.id"
+        content="Fashio Trendz adalah solusi terbaik untuk membat anda lebih percaya diri"
       />
       <meta name="keyword" content="Fashio trendz" />
       
@@ -13,9 +13,9 @@ const MetaTag = () => {
       <meta property="og:title" content="FashioTrendz" />
       <meta
         property="og:description"
-        content="FashioTrendz Ecommerce indonesia handev"
+        content="Fashio Trendz adalah solusi terbaik untuk membat anda lebih percaya diri"
       />
-      <meta property="og:image" content="thumbnail.png" />
+      <meta property="og:image" content="/thumbnail.png" />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:domain" content="https://fashiotrendz.handev.my.id" />
@@ -26,9 +26,9 @@ const MetaTag = () => {
       <meta name="twitter:title" content="FashioTrendz" />
       <meta
         name="twitter:description"
-        content="FashioTrendz Ecommerce indonesia handev"
+        content="Fashio Trendz adalah solusi terbaik untuk membat anda lebih percaya diri"
       />
-      <meta name="twitter:image" content="/thumbnail.png" />
+      <meta name="twitter:image" content="https://firebasestorage.googleapis.com/v0/b/ecommerce-nextjs-ed19d.appspot.com/o/Green%20Simple%20Fashion%20Sale%20Promotion%20Banner%20Landscape%20(1).jpg?alt=media&token=00a1c802-46b3-4c33-8bde-80441af33130&_gl=1*10p2i6p*_ga*OTM3MTc5MDkxLjE2OTYwMDA5Njc.*_ga_CW55HF8NVT*MTY5ODIwNTU3Ni40OC4xLjE2OTgyMDY5MTYuNC4wLjA." />
     </>
   );
 };
