@@ -8,7 +8,7 @@ const MetaTag = () => {
       />
       <meta name="keyword" content="Fashio trendz" />
       
-      <meta property="og:url" content="https://fashio-trendz.handev.my.id" />
+      <meta property="og:url" content="https://fashiotrendz.handev.my.id" />
       <meta property="og:type" content="website" />
       <meta property="og:title" content="FashioTrendz" />
       <meta
@@ -18,10 +18,10 @@ const MetaTag = () => {
       <meta property="og:image" content="thumbnail.png" />
 
       <meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:domain" content="handev.my.id" />
+      <meta property="twitter:domain" content="https://fashiotrendz.handev.my.id" />
       <meta
         property="twitter:url"
-        content="https://fashio-trendz.handev.my.id"
+        content="https://fashiotrendz.handev.my.id"
       />
       <meta name="twitter:title" content="FashioTrendz" />
       <meta
