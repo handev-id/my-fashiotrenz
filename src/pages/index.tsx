@@ -26,6 +26,8 @@ export default function Home({ content }: any) {
   const { push, reload } = useRouter();
   const { data, isLoading, error } = useProducts();
 
+  // UPDATES TESTING
+
   if (content.length === 0) {
     return <Loading />;
   }
@@ -229,7 +231,9 @@ export default function Home({ content }: any) {
 }
 
 export async function getServerSideProps() {
-  const response = await fetch("https://fashiotrendz.handev.my.id/api/get/content");
+  const response = await fetch(
+    "https://fashiotrendz.handev.my.id/api/get/content"
+  );
   const data = await response.json();
 
   return {
