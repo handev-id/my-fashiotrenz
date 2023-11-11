@@ -85,15 +85,20 @@ export async function addToCarts(
     await updateDoc(doc(db, "carts", data[0].id), {
       quantity: (data[0] as any).quantity + 1,
     });
+    if ((data[0] as any).size != product.size) {
+      await updateDoc(doc(db, "carts", data[0].id), {
+        size: product.size,
+      });
+    }
   } else {
     await addDoc(collection(db, "carts"), {
       userName: userName,
       productId: product.id,
-      thumbnail: product.thumbnail,
       title: product.title,
       price: product.price,
+      thumbnail: product.thumbnail,
       stock: product.stock,
-      quantity: 1,
+      quantity: product.quantity,
       size: product.size,
     })
       .then(() => {

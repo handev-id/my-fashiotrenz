@@ -5,6 +5,7 @@ export type ProductType = {
   price: number;
   stock: number;
   category: string;
+  size: string;
   quantity?: number | undefined;
   thumbnail: string;
   images: Array<string>;

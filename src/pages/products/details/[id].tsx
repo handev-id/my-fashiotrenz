@@ -69,11 +69,16 @@ const DetailPage = () => {
       });
       return null;
     } else {
-      mutate({
-        ...data?.product,
+      const product: any = {
+        id: params?.id,
+        title: data?.product.title,
+        price: data?.product.price,
+        thumbnail: data?.product.thumbnail,
+        stock: data?.product.stock,
         size: chooseSize,
-        id: params.id,
-      });
+        quantity: 1,
+      };
+      mutate(product);
     }
   };
 

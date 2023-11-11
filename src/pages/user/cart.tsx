@@ -56,7 +56,7 @@ const CartPage = () => {
   }
 
   const handleDeleteProduct = async (id: string) => {
-    await fetch(`/api/delete/cart/${id}`, {
+    const res = await fetch(`/api/delete/cart/${id}`, {
       method: "DELETE",
     });
     refetch();

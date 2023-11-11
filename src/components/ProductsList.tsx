@@ -25,9 +25,7 @@ interface ProductsProps {
 
 const ProductsList: React.FC<ProductsProps> = ({ data, isLoading, error }) => {
   const { data: session }: any = useSession();
-
   const userName = session?.user?.fullname;
-
   const toast = useToast();
 
   const { mutate: addToCarts, isLoading: loadingCart } = useMutation({
@@ -63,7 +61,16 @@ const ProductsList: React.FC<ProductsProps> = ({ data, isLoading, error }) => {
       });
       return null;
     } else {
-      addToCarts({ ...product, size: "" });
+      const data: any = {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        thumbnail: product.thumbnail,
+        stock: product.stock,
+        size: "",
+        quantity: 1,
+      };
+      addToCarts(data);
     }
   };
 
