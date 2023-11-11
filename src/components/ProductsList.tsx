@@ -8,7 +8,6 @@ import {
   Image,
   Button,
   Stack,
-  Spinner,
   useToast,
 } from "@chakra-ui/react";
 import { BsFillCartPlusFill } from "react-icons/bs";
@@ -64,7 +63,7 @@ const ProductsList: React.FC<ProductsProps> = ({ data, isLoading, error }) => {
       });
       return null;
     } else {
-      addToCarts(product);
+      addToCarts({ ...product, size: "" });
     }
   };
 

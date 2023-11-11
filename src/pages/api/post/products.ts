@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { createProduct } from "@/utils/service";
+import { createData } from "@/utils/service";
 import { ProductType } from "@/types/types";
 
 export default async function postProduct(
@@ -7,7 +7,8 @@ export default async function postProduct(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    await createProduct(
+    await createData(
+      "products",
       req.body as ProductType,
       ({ status, message }: { status: boolean; message: string }) => {
         if (status) {

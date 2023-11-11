@@ -16,6 +16,8 @@ import {
   InputGroup,
   InputLeftElement,
   Textarea,
+  useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import {
   MdPhone,
@@ -26,8 +28,39 @@ import {
 } from "react-icons/md";
 import { BsGithub, BsDiscord, BsPerson } from "react-icons/bs";
 import { Colors } from "./ColorScheme";
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
 
 export default function Contact() {
+  const { register, handleSubmit, reset } = useForm();
+  const toast = useToast();
+  const onSubmitMessage = (data: any) => {
+    mutate(data);
+  };
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: async (messageData: any) => {
+      const response = await fetch("/api/post/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(messageData),
+      });
+      return response;
+    },
+    onSuccess: () => {
+      toast({
+        title: "Suksess",
+        description: "Pesan Terkirim",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      reset();
+    },
+  });
+
   return (
     <Container
       bg={Colors.fourthirty}
@@ -138,55 +171,61 @@ export default function Contact() {
               <WrapItem>
                 <Box bg="white" borderRadius="lg">
                   <Box m={8} color="#0B0E3F">
-                    <VStack spacing={5}>
-                      <FormControl id="name">
-                        <FormLabel>Nama Anda</FormLabel>
-                        <InputGroup borderColor="#E0E1E7">
-                          <InputLeftElement pointerEvents="none">
-                            <BsPerson color="gray.800" />
-                          </InputLeftElement>
-                          <Input
+                    <form onSubmit={handleSubmit(onSubmitMessage)}>
+                      <VStack spacing={5}>
+                        <FormControl id="name">
+                          <FormLabel>Nama Anda</FormLabel>
+                          <InputGroup borderColor="#E0E1E7">
+                            <InputLeftElement pointerEvents="none">
+                              <BsPerson color="gray.800" />
+                            </InputLeftElement>
+                            <Input
+                              {...register("name")}
+                              focusBorderColor={Colors.secondary}
+                              type="text"
+                              size="md"
+                            />
+                          </InputGroup>
+                        </FormControl>
+                        <FormControl id="name">
+                          <FormLabel>Email Anda</FormLabel>
+                          <InputGroup borderColor="#E0E1E7">
+                            <InputLeftElement pointerEvents="none">
+                              <MdOutlineEmail color="gray.800" />
+                            </InputLeftElement>
+                            <Input
+                              {...register("email")}
+                              focusBorderColor={Colors.secondary}
+                              type="text"
+                              size="md"
+                            />
+                          </InputGroup>
+                        </FormControl>
+                        <FormControl id="name">
+                          <FormLabel>Pesan</FormLabel>
+                          <Textarea
+                            {...register("message")}
                             focusBorderColor={Colors.secondary}
-                            type="text"
-                            size="md"
+                            borderColor="gray.300"
+                            _hover={{
+                              borderRadius: "gray.300",
+                            }}
+                            placeholder="Ketik Pesan Disini"
                           />
-                        </InputGroup>
-                      </FormControl>
-                      <FormControl id="name">
-                        <FormLabel>Email Anda</FormLabel>
-                        <InputGroup borderColor="#E0E1E7">
-                          <InputLeftElement pointerEvents="none">
-                            <MdOutlineEmail color="gray.800" />
-                          </InputLeftElement>
-                          <Input
-                            focusBorderColor={Colors.secondary}
-                            type="text"
-                            size="md"
-                          />
-                        </InputGroup>
-                      </FormControl>
-                      <FormControl id="name">
-                        <FormLabel>Pesan</FormLabel>
-                        <Textarea
-                          focusBorderColor={Colors.secondary}
-                          borderColor="gray.300"
-                          _hover={{
-                            borderRadius: "gray.300",
-                          }}
-                          placeholder="Ketik Pesan Disini"
-                        />
-                      </FormControl>
-                      <FormControl id="name" float="right">
-                        <Button
-                          variant="solid"
-                          bg={Colors.secondary}
-                          color="white"
-                          _hover={{}}
-                        >
-                          Kirim Pesan
-                        </Button>
-                      </FormControl>
-                    </VStack>
+                        </FormControl>
+                        <FormControl id="name" float="right">
+                          <Button
+                            type="submit"
+                            variant="solid"
+                            bg={Colors.secondary}
+                            color="white"
+                            _hover={{}}
+                          >
+                            {isLoading ? <Spinner /> : "Kirim Pesan"}
+                          </Button>
+                        </FormControl>
+                      </VStack>
+                    </form>
                   </Box>
                 </Box>
               </WrapItem>

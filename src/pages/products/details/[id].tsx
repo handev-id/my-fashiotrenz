@@ -11,24 +11,73 @@ import {
   Heading,
   Text,
   Button,
+  useToast,
+  Spinner,
 } from "@chakra-ui/react";
+import { useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { BsFillArrowRightCircleFill, BsFillCartPlusFill } from "react-icons/bs";
-
+import { useSession } from "next-auth/react";
 const DetailPage = () => {
   const params = useParams();
   const { data, isLoading, error } = useProduct(params?.id as string);
+  const { data: session }: any = useSession();
+  const userName = session?.user?.fullname;
+  const toast = useToast();
+
   const discount = data?.product?.price + data?.product?.price * 0.3;
+  const [chooseSize, setChooseSize] = useState<string>("");
+  const [thumbnail, setThumbnail] = useState(0);
 
-  const [chooseSize, setChooseSize] = useState<null | number>(null);
-  const [thumbnail, setThumbnail] = useState(1);
-
-  const chooseSizeHandler = (size: number) => {
+  const chooseSizeHandler = (size: string) => {
     setChooseSize(size);
   };
 
-  if (isLoading) {
+  const { mutate, isLoading: loadingCart } = useMutation({
+    mutationFn: async (cartData) => {
+      const response = await fetch(`/api/post/carts?username=${userName}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cartData),
+      });
+      if (response.status === 200) {
+        toast({
+          title: "Suksess",
+          description: "Produk ditambahkan ke keranjang",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+      return response;
+    },
+  });
+
+  const handleAddToCarts = () => {
+    if (!session || chooseSize == "") {
+      toast({
+        title: "Gagal",
+        description: !session
+          ? "Silahkan login terlebih dahulu"
+          : "Silahkan pilih ukuran terlebih dahulu",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      return null;
+    } else {
+      mutate({
+        ...data?.product,
+        size: chooseSize,
+        id: params.id,
+      });
+    }
+  };
+
+  if (isLoading || error) {
     return <Loading />;
   }
 
@@ -97,38 +146,38 @@ const DetailPage = () => {
             </Heading>
             <HStack spacing={3}>
               <Button
-                onClick={() => chooseSizeHandler(1)}
+                onClick={() => chooseSizeHandler("S")}
                 p={3}
                 rounded={"full"}
-                bg={chooseSize === 1 ? Colors.secondary : "#eee"}
-                color={chooseSize === 1 ? "white" : Colors.hoverPrimary}
+                bg={chooseSize == "S" ? Colors.secondary : "#eee"}
+                color={chooseSize == "S" ? "white" : Colors.hoverPrimary}
               >
                 S
               </Button>
               <Button
-                onClick={() => chooseSizeHandler(2)}
+                onClick={() => chooseSizeHandler("M")}
                 p={3}
                 rounded={"full"}
-                bg={chooseSize === 2 ? Colors.secondary : "#eee"}
-                color={chooseSize === 2 ? "white" : Colors.hoverPrimary}
+                bg={chooseSize == "M" ? Colors.secondary : "#eee"}
+                color={chooseSize == "M" ? "white" : Colors.hoverPrimary}
               >
                 M
               </Button>
               <Button
-                onClick={() => chooseSizeHandler(3)}
+                onClick={() => chooseSizeHandler("L")}
                 p={3}
                 rounded={"full"}
-                bg={chooseSize === 3 ? Colors.secondary : "#eee"}
-                color={chooseSize === 3 ? "white" : Colors.hoverPrimary}
+                bg={chooseSize == "L" ? Colors.secondary : "#eee"}
+                color={chooseSize == "L" ? "white" : Colors.hoverPrimary}
               >
                 L
               </Button>
               <Button
-                onClick={() => chooseSizeHandler(4)}
+                onClick={() => chooseSizeHandler("XL")}
                 p={3}
                 rounded={"full"}
-                bg={chooseSize === 4 ? Colors.secondary : "#eee"}
-                color={chooseSize === 4 ? "white" : Colors.hoverPrimary}
+                bg={chooseSize == "XL" ? Colors.secondary : "#eee"}
+                color={chooseSize == "XL" ? "white" : Colors.hoverPrimary}
               >
                 XL
               </Button>
@@ -153,9 +202,12 @@ const DetailPage = () => {
                   <BsFillArrowRightCircleFill />
                 </Flex>
               </Button>
-              <Button size={{ base: "md", md: "lg" }}>
+              <Button
+                onClick={() => handleAddToCarts()}
+                size={{ base: "md", md: "lg" }}
+              >
                 <Flex gap={3} align={"center"}>
-                  Tambah Ke Keranjang
+                  {loadingCart ? <Spinner /> : "Tambah Ke Keranjang"}
                   <BsFillCartPlusFill fontSize={20} />
                 </Flex>
               </Button>

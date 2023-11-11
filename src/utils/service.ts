@@ -28,13 +28,14 @@ export async function productById(id: string) {
   return data;
 }
 
-export async function createProduct(
-  productData: ProductType,
+export async function createData(
+  collectionName: string,
+  data: any,
   callback: Function
 ) {
-  await addDoc(collection(db, "products"), productData)
+  await addDoc(collection(db, collectionName), data)
     .then(() => {
-      callback({ status: true, message: "Product Berhasil Dibuat" });
+      callback({ status: true, message: "Data Berhasil Dibuat" });
     })
     .catch((error) => {
       callback({ status: false, message: error.message });
@@ -93,6 +94,7 @@ export async function addToCarts(
       price: product.price,
       stock: product.stock,
       quantity: 1,
+      size: product.size,
     })
       .then(() => {
         callback({ status: true, message: "Carts Berhasil Dibuat" });

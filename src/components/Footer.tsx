@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { FaTwitter, FaYoutube, FaInstagram } from "react-icons/fa";
 import { Colors } from "./ColorScheme";
+import Link from "next/link";
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
@@ -60,47 +61,29 @@ export default function Footer() {
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
           <Stack align={"flex-start"}>
             <ListHeader>Company</ListHeader>
-            <Box as="a" href={"#"}>
+            <Box as="a" href={"/#about"}>
               About Us
             </Box>
-            <Box as="a" href={"#"}>
-              Blog
-            </Box>
-            <Box as="a" href={"#"}>
-              Careers
-            </Box>
-            <Box as="a" href={"#"}>
-              Contact Us
+            <Box as="a" href={"/#contact"}>
+              Contact
             </Box>
           </Stack>
 
           <Stack align={"flex-start"}>
-            <ListHeader>Support</ListHeader>
-            <Box as="a" href={"#"}>
-              Help Center
-            </Box>
-            <Box as="a" href={"#"}>
-              Safety Center
-            </Box>
-            <Box as="a" href={"#"}>
-              Community Guidelines
-            </Box>
+            <ListHeader>Halaman</ListHeader>
+            <Link href={"/auth/register"}>Register</Link>
+            <Link href={"/products"}>Semua Produk</Link>
+            <Link href={"/#category"}>Kategori</Link>
+            <Link href={"/user/profile"}>Profil User</Link>
+            <Link href={"/user/cart"}>Keranjang</Link>
           </Stack>
 
           <Stack align={"flex-start"}>
-            <ListHeader>Legal</ListHeader>
-            <Box as="a" href={"#"}>
-              Cookies Policy
-            </Box>
-            <Box as="a" href={"#"}>
-              Privacy Policy
-            </Box>
-            <Box as="a" href={"#"}>
-              Terms of Service
-            </Box>
-            <Box as="a" href={"#"}>
-              Law Enforcement
-            </Box>
+            <ListHeader>Fitur</ListHeader>
+            <Box>Pencarian</Box>
+            <Box>Keranjang</Box>
+            <Box>Profil User</Box>
+            <Box>Login / Register</Box>
           </Stack>
 
           <Stack align={"flex-start"}>
