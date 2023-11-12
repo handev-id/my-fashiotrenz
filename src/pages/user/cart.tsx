@@ -5,6 +5,7 @@ import { Box, Button, Flex, Heading, Spinner } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useCarts } from "@/hooks/useProducts";
 import Link from "next/dist/client/link";
+import CartLoad from "@/components/skeletons/cart";
 
 const CartPage = () => {
   const { data: session }: any = useSession();
@@ -17,8 +18,8 @@ const CartPage = () => {
 
   if (isLoading) {
     return (
-      <Flex py={100} justify={"center"}>
-        <Spinner size={"xl"} />
+      <Flex py={100} justify={"center"} bg={Colors.fourthirty}>
+        <CartLoad />
       </Flex>
     );
   }

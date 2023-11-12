@@ -14,6 +14,7 @@ import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { ProductType } from "@/types/types";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface CartProps {
   cartData?: Array<ProductType>;
@@ -21,6 +22,7 @@ interface CartProps {
 }
 
 const CartItem: React.FC<CartProps> = ({ cartData, deleteProduct }) => {
+  const { push } = useRouter();
   return (
     <div>
       {cartData?.map((product: ProductType) => (
@@ -101,7 +103,7 @@ const CartItem: React.FC<CartProps> = ({ cartData, deleteProduct }) => {
               <Text fontSize={{ base: "sm", md: "md" }}>Hapus</Text>
             </Flex>
           </div>
-          <Link href={`products/checkout`}>
+          <Link href={`/checkout/${product.id}`}>
             <Button
               size={{ base: "xs", md: "sm" }}
               _hover={{ bg: Colors.hoverPrimary }}

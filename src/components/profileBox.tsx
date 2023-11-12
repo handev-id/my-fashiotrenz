@@ -8,15 +8,17 @@ import {
   Text,
   Stack,
   useToast,
+  HStack,
 } from "@chakra-ui/react";
 import { Colors } from "./ColorScheme";
 import Link from "next/link";
+import { BiLogIn } from "react-icons/bi";
 
 type BCProps = {
   role: string | null;
   href: string;
   username: string;
-  profilesData: Array<{ title: string; path: string }>;
+  profilesData: Array<{ title: string; path: string; icon: any }>;
   isLogin?: boolean;
 };
 
@@ -76,7 +78,12 @@ const Breadcrumbs: React.FC<BCProps> = ({
                   p={3}
                   rounded={"lg"}
                 >
-                  Login
+                  <Flex align={"center"} gap={2}>
+                    <div style={{ fontSize: 24 }}>
+                      <BiLogIn />
+                    </div>
+                    Login
+                  </Flex>
                 </Box>
               </Link>
             ) : (
@@ -96,7 +103,10 @@ const Breadcrumbs: React.FC<BCProps> = ({
                   p={3}
                   rounded={"lg"}
                 >
-                  {link.title}
+                  <Flex align={"center"} gap={2}>
+                    <div style={{ fontSize: 24 }}>{link.icon}</div>
+                    {link.title}
+                  </Flex>
                 </Box>
                 // </Link>
               ))

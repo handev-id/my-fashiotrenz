@@ -23,7 +23,7 @@ import Loading from "@/components/LoadingPage";
 import { useProducts } from "@/hooks/useProducts";
 
 export default function Home({ content }: any) {
-  const { push, reload } = useRouter();
+  const { push } = useRouter();
   const { data, isLoading, error } = useProducts();
 
   // UPDATES TESTING

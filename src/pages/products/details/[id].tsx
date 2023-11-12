@@ -19,6 +19,7 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import { BsFillArrowRightCircleFill, BsFillCartPlusFill } from "react-icons/bs";
 import { useSession } from "next-auth/react";
+import ProductDetailLoad from "@/components/skeletons/detail";
 const DetailPage = () => {
   const params = useParams();
   const { data, isLoading, error } = useProduct(params?.id as string);
@@ -83,7 +84,7 @@ const DetailPage = () => {
   };
 
   if (isLoading || error) {
-    return <Loading />;
+    return <ProductDetailLoad />;
   }
 
   return (

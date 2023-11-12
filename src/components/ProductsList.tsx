@@ -16,6 +16,7 @@ import { useSession } from "next-auth/react";
 import { useMutation } from "@tanstack/react-query";
 import Loading from "./LoadingPage";
 import Link from "next/link";
+import ProductLoad from "./skeletons/product";
 
 interface ProductsProps {
   data: any;
@@ -75,7 +76,7 @@ const ProductsList: React.FC<ProductsProps> = ({ data, isLoading, error }) => {
   };
 
   if (isLoading) {
-    return <Loading />;
+    return <ProductLoad />;
   }
 
   return (
