@@ -8,6 +8,7 @@ import "@fontsource/lato/300.css";
 import "@fontsource/lato/400.css";
 import "@fontsource/lato/700.css";
 import "@fontsource/lato/900.css";
+import MetaTag from "@/components/MetaTag";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,6 +35,7 @@ export default function App({
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider theme={theme}>
+          <MetaTag />
           <Navbar />
           <Component {...pageProps} />
         </ChakraProvider>

@@ -1,6 +1,3 @@
-import Head from "next/head";
-import { Lato } from "next/font/google";
-import MetaTag from "@/components/MetaTag";
 import { Colors } from "@/components/ColorScheme";
 import {
   Box,
@@ -34,9 +31,6 @@ export default function Home({ content }: any) {
 
   return (
     <>
-      <Head>
-        <MetaTag />
-      </Head>
       <main style={{ backgroundColor: Colors.fourthirty }}>
         <div className="banner-home">
           <Container maxW={"container.xl"} px={{ base: 3, md: 5, lg: 10 }}>

@@ -28,6 +28,12 @@ export async function productById(id: string) {
   return data;
 }
 
+export async function productByIdCart(id: string) {
+  const snapshot = await getDoc(doc(db, "carts", id));
+  const data = snapshot.data();
+  return data;
+}
+
 export async function createData(
   collectionName: string,
   data: any,
