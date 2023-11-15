@@ -52,6 +52,15 @@ const ProductsList: React.FC<ProductsProps> = ({ data, isLoading, error }) => {
   });
 
   const handleAddToCarts = (product: any) => {
+    const data: any = {
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      thumbnail: product.thumbnail,
+      stock: product.stock,
+      size: "",
+      quantity: 1,
+    };
     if (!session) {
       toast({
         title: "Gagal",
@@ -62,15 +71,6 @@ const ProductsList: React.FC<ProductsProps> = ({ data, isLoading, error }) => {
       });
       return null;
     } else {
-      const data: any = {
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        thumbnail: product.thumbnail,
-        stock: product.stock,
-        size: "",
-        quantity: 1,
-      };
       addToCarts(data);
     }
   };

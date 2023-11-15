@@ -20,12 +20,14 @@ import { useState } from "react";
 import { BsFillArrowRightCircleFill, BsFillCartPlusFill } from "react-icons/bs";
 import { useSession } from "next-auth/react";
 import ProductDetailLoad from "@/components/skeletons/detail";
+import { useRouter } from "next/router";
 const DetailPage = () => {
   const params = useParams();
   const { data, isLoading, error } = useProduct(params?.id as string);
   const { data: session }: any = useSession();
   const userName = session?.user?.fullname;
   const toast = useToast();
+  const { push } = useRouter();
 
   const discount = data?.product?.price + data?.product?.price * 0.3;
   const [chooseSize, setChooseSize] = useState<string>("");
@@ -58,6 +60,15 @@ const DetailPage = () => {
   });
 
   const handleAddToCarts = () => {
+    const product: any = {
+      id: params?.id,
+      title: data?.product.title,
+      price: data?.product.price,
+      thumbnail: data?.product.thumbnail,
+      stock: data?.product.stock,
+      size: chooseSize,
+      quantity: 1,
+    };
     if (!session || chooseSize == "") {
       toast({
         title: "Gagal",
@@ -70,15 +81,6 @@ const DetailPage = () => {
       });
       return null;
     } else {
-      const product: any = {
-        id: params?.id,
-        title: data?.product.title,
-        price: data?.product.price,
-        thumbnail: data?.product.thumbnail,
-        stock: data?.product.stock,
-        size: chooseSize,
-        quantity: 1,
-      };
       mutate(product);
     }
   };
@@ -203,7 +205,7 @@ const DetailPage = () => {
                 color={"white"}
                 size={{ base: "md", md: "lg" }}
               >
-                <Flex gap={3} align={"center"}>
+                <Flex gap={3} align={"center"} onClick={() => push(``)}>
                   Checkout
                   <BsFillArrowRightCircleFill />
                 </Flex>
