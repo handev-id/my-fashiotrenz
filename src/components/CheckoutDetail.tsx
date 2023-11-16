@@ -1,5 +1,6 @@
-import { Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Flex, Heading, Image, Skeleton, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
+import Loading from "./LoadingPage";
 
 type ProductType = {
   title: string;
@@ -16,12 +17,6 @@ interface CheckoutDetailProps {
 }
 
 const CheckoutDetail: React.FC<CheckoutDetailProps> = ({ productdata }) => {
-  // const [productCheckout, setProductCheckout] = useState<any>([]);
-
-  // useEffect(() => {
-  //   setProductCheckout({ ...productdata });
-  // }, []);
-
   const subTotal = (productdata?.price || 0) * (productdata?.quantity || 0);
 
   return (
@@ -40,8 +35,8 @@ const CheckoutDetail: React.FC<CheckoutDetailProps> = ({ productdata }) => {
           <Text>Rp.{productdata?.price.toLocaleString("id-ID")}</Text>
         </div>
       </Flex>
-      <Heading size="md" mt={5}>
-        Subtotal: {subTotal.toLocaleString("id-ID")}
+      <Heading size="md" mt={8}>
+        Subtotal: Rp.{subTotal.toLocaleString("id-ID")}
       </Heading>
     </div>
   );

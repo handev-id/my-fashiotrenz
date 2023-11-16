@@ -6,6 +6,16 @@ export default async function getProducts(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const { limit } = req.query;
   const products = await productsData("products");
-  res.status(200).json({ status: true, statusCode: 200, products });
+
+  const parsedLimit = parseInt(limit as string, products.length);
+  const validLimit = !isNaN(parsedLimit) ? parsedLimit : products.length;
+  const limitedProducts = products.slice(0, validLimit);
+  res.status(200).json({
+    status: true,
+    statusCode: 200,
+    productsAMount: limitedProducts.length,
+    products: limitedProducts,
+  });
 }

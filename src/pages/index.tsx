@@ -95,7 +95,11 @@ export default function Home({ content }: any) {
                 bg={"white"}
               >
                 <Image
-                  src={content[0]?.banner}
+                  src={
+                    content[0]?.banner
+                      ? content[0]?.banner
+                      : "https://firebasestorage.googleapis.com/v0/b/ecommerce-nextjs-ed19d.appspot.com/o/1qq.jpg?alt=media&token=e4684909-e38b-454d-8d81-5997fa49110b&_gl=1*1vmmjj9*_ga*OTM3MTc5MDkxLjE2OTYwMDA5Njc.*_ga_CW55HF8NVT*MTY5ODIxODgyNC41Mi4xLjE2OTgyMTg5OTQuMzEuMC4w"
+                  }
                   mx={"auto"}
                   w={{ base: "70%", lg: 320 }}
                 />

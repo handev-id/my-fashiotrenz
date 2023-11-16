@@ -4,7 +4,7 @@ export const useProducts = () => {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const response = await fetch("/api/get/products");
+      const response = await fetch(`/api/get/products`);
       const products = await response.json();
       return products;
     },
