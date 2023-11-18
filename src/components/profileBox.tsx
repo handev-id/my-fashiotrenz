@@ -11,8 +11,8 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { Colors } from "./ColorScheme";
-import Link from "next/link";
-import { BiLogIn } from "react-icons/bi";
+import { BiLogIn, BiLogOut } from "react-icons/bi";
+import { signIn, signOut } from "next-auth/react";
 
 type BCProps = {
   role: string | null;
@@ -63,54 +63,53 @@ const Breadcrumbs: React.FC<BCProps> = ({
             <Text>{role}</Text>
           </div>
           <div style={{ marginTop: 10 }}>
-            {!isLogin ? (
-              <Link href="/auth/login">
-                <Box
-                  mt={3}
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: 18,
-                    width: "100%",
-                  }}
-                  border={"2px"}
-                  borderColor={Colors.fourthirty}
-                  _hover={{ bg: Colors.fourthirty }}
-                  p={3}
-                  rounded={"lg"}
-                >
-                  <Flex align={"center"} gap={2}>
-                    <div style={{ fontSize: 24 }}>
-                      <BiLogIn />
-                    </div>
-                    Login
-                  </Flex>
-                </Box>
-              </Link>
-            ) : (
-              profilesData?.map((link) => (
-                // <Link href={link.path}>
-                <Box
-                  onClick={() => onComing()}
-                  mt={3}
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: 18,
-                    width: "100%",
-                  }}
-                  border={"2px"}
-                  borderColor={Colors.fourthirty}
-                  _hover={{ bg: Colors.fourthirty }}
-                  p={3}
-                  rounded={"lg"}
-                >
-                  <Flex align={"center"} gap={2}>
-                    <div style={{ fontSize: 24 }}>{link.icon}</div>
-                    {link.title}
-                  </Flex>
-                </Box>
-                // </Link>
-              ))
-            )}
+            {profilesData?.map((link) => (
+              // <Link href={link.path}>
+              <Box
+                display={isLogin ? "block" : "none"}
+                key={link.title}
+                onClick={() => onComing()}
+                mt={3}
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 18,
+                  width: "100%",
+                }}
+                border={"2px"}
+                borderColor={Colors.fourthirty}
+                _hover={{ bg: Colors.fourthirty }}
+                p={3}
+                rounded={"lg"}
+              >
+                <Flex align={"center"} gap={2}>
+                  <div style={{ fontSize: 24 }}>{link.icon}</div>
+                  {link.title}
+                </Flex>
+              </Box>
+              // </Link>
+            ))}
+            <Box
+              onClick={() => (isLogin ? signOut() : signIn())}
+              cursor={"pointer"}
+              mt={3}
+              style={{
+                fontWeight: "bold",
+                fontSize: 18,
+                width: "100%",
+              }}
+              border={"2px"}
+              borderColor={Colors.fourthirty}
+              _hover={{ bg: Colors.fourthirty }}
+              p={3}
+              rounded={"lg"}
+            >
+              <Flex align={"center"} gap={2}>
+                <div style={{ fontSize: 24 }}>
+                  {isLogin ? <BiLogOut /> : <BiLogIn />}
+                </div>
+                {isLogin ? "Log out" : "Login"}
+              </Flex>
+            </Box>
           </div>
         </Stack>
       </Container>

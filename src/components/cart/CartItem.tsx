@@ -103,19 +103,23 @@ const CartItem: React.FC<CartProps> = ({ cartData, deleteProduct }) => {
               <Text fontSize={{ base: "sm", md: "md" }}>Hapus</Text>
             </Flex>
           </div>
-          <Link href={`/checkout/${product.id}`}>
-            <Button
-              size={{ base: "xs", md: "sm" }}
-              _hover={{ bg: Colors.hoverPrimary }}
-              color={"white"}
-              bg={Colors.secondary}
-              pos={"absolute"}
-              bottom={0}
-              left={0}
-            >
-              Checkout
-            </Button>
-          </Link>
+          <Button
+            onClick={() =>
+              push({
+                pathname: `/checkout/${product.productId}`,
+                query: { qty: product.quantity, sz: product.size },
+              })
+            }
+            size={{ base: "xs", md: "sm" }}
+            _hover={{ bg: Colors.hoverPrimary }}
+            color={"white"}
+            bg={Colors.secondary}
+            pos={"absolute"}
+            bottom={0}
+            left={0}
+          >
+            Checkout
+          </Button>
         </HStack>
       ))}
     </div>

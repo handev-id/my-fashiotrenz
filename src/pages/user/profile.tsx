@@ -2,18 +2,17 @@ import Breadcrumbs from "@/components/profileBox";
 import { useSession } from "next-auth/react";
 import { AiFillEdit } from "react-icons/ai";
 import { FaAddressBook } from "react-icons/fa";
+import { TbTruckDelivery } from "react-icons/tb";
 import { AiFillLock } from "react-icons/ai";
 import Loading from "@/components/LoadingPage";
 import ProfileLoad from "@/components/skeletons/profile";
+import { Box } from "@chakra-ui/react";
 
 const ProfilePage = () => {
   const { data }: any = useSession();
-  if (!data) {
-    return <ProfileLoad />;
-  }
 
   return (
-    <>
+    <Box mt={50}>
       <Breadcrumbs
         role={data?.user?.role}
         href="/admin/dashboard/Home"
@@ -21,18 +20,19 @@ const ProfilePage = () => {
         profilesData={profilesData}
         isLogin={data ? true : false}
       />
-    </>
+    </Box>
   );
 };
 
 export default ProfilePage;
 
 const profilesData = [
-  { title: "Edit Profile", path: "/user/profile/edit", icon: <AiFillEdit /> },
-  { title: "Alamat", path: "/user/profile/address", icon: <FaAddressBook /> },
+  { title: "Edit Profile", path: "/user/edit", icon: <AiFillEdit /> },
+  { title: "Alamat", path: "/user/address", icon: <FaAddressBook /> },
   {
     title: "Ubah Password",
-    path: "/user/profile/password",
+    path: "/user/password",
     icon: <AiFillLock />,
   },
+  { title: "Pesanan", path: "/user//orders", icon: <TbTruckDelivery /> },
 ];

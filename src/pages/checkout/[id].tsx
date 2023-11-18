@@ -17,7 +17,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Loading from "@/components/LoadingPage";
+import { FaArrowLeft } from "react-icons/fa";
+import { useSession } from "next-auth/react";
 
 const schema = yup.object({
   email: yup.string().email().required("Isi Email"),
@@ -27,14 +28,23 @@ const schema = yup.object({
 });
 
 const CheckoutPage = () => {
+  const { data: session }: any = useSession();
   const {
     push,
-    query: { id },
+    query: { id, qty, sz },
+    back,
   }: any = useRouter();
   const [rekeningName, setRekeningName] = useState<string>("");
+  if (!session) {
+    return null;
+  }
 
-  const { data, isLoading, refetch } = useQuery(["product"], async () => {
-    const res = await fetch(`/api/get/carts/product/${id}`);
+  const {
+    data: product,
+    isLoading,
+    refetch,
+  } = useQuery(["product"], async () => {
+    const res = await fetch(`/api/get/product/${id}`);
     return res.json();
   });
 
@@ -53,7 +63,14 @@ const CheckoutPage = () => {
       ...data,
       payment: paymentsMethode[choosePayment as number].title,
       userRekening: rekeningName,
-      product: id,
+      product: product.id,
+      title: product.title,
+      price: product.price,
+      quantity: qty,
+      size: sz,
+      status: false,
+      image: product.thumbnail,
+      accountName: session?.user?.fullname,
       timestamp: new Date().toDateString(),
     });
   };
@@ -76,7 +93,19 @@ const CheckoutPage = () => {
 
   return (
     <>
-      {loadingOrder && <Loading />}
+      <Flex h={"70px"} bg={Colors.secondary} align={"center"}>
+        <Box
+          cursor={"pointer"}
+          onClick={() => back()}
+          style={{ margin: "0 20px" }}
+          _hover={{ opacity: "70%" }}
+          bg={"#067d68"}
+          p={3}
+          rounded={"lg"}
+        >
+          <FaArrowLeft color="white" fontSize={22} />
+        </Box>
+      </Flex>
       <Flex
         bg={Colors.fourthirty}
         p={{ base: 5, lg: 10 }}
@@ -91,7 +120,10 @@ const CheckoutPage = () => {
           w={{ base: "full", lg: "30%" }}
           h={"full"}
         >
-          <CheckoutDetail productdata={data?.cart} isLoading={isLoading} />
+          <CheckoutDetail
+            productdata={product?.product}
+            isLoading={isLoading}
+          />
         </Box>
         <Box
           pb={20}
@@ -174,6 +206,7 @@ const CheckoutPage = () => {
             <Flex gap={5} mt={3}>
               {paymentsMethode.map((pay, index) => (
                 <HStack
+                  key={index}
                   onClick={() => setChoosePayment(index)}
                   spacing={1}
                   cursor={"pointer"}

@@ -9,6 +9,7 @@ export type ProductType = {
   quantity?: number | undefined;
   thumbnail: string;
   images: Array<string>;
+  productId?: string;
 };
 
 export type UserRegisterType = {

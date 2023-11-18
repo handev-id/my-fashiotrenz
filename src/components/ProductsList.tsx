@@ -38,16 +38,16 @@ const ProductsList: React.FC<ProductsProps> = ({ data, isLoading, error }) => {
         },
         body: JSON.stringify(cartData),
       });
-      if (response.status === 200) {
-        toast({
-          title: "Suksess",
-          description: "Produk ditambahkan ke keranjang",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-      }
       return response;
+    },
+    onSuccess: () => {
+      toast({
+        title: "Suksess",
+        description: "Produk ditambahkan ke keranjang",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
     },
   });
 

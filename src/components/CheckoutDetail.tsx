@@ -1,6 +1,6 @@
-import { Flex, Heading, Image, Skeleton, Text } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
-import Loading from "./LoadingPage";
+import { Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { Colors } from "./ColorScheme";
 
 type ProductType = {
   title: string;
@@ -17,7 +17,10 @@ interface CheckoutDetailProps {
 }
 
 const CheckoutDetail: React.FC<CheckoutDetailProps> = ({ productdata }) => {
-  const subTotal = (productdata?.price || 0) * (productdata?.quantity || 0);
+  const { query }: any = useRouter();
+
+  const quantity = parseInt(query?.qty);
+  const subTotal = (productdata?.price || 0) * (quantity || 0);
 
   return (
     <div>
@@ -30,8 +33,10 @@ const CheckoutDetail: React.FC<CheckoutDetailProps> = ({ productdata }) => {
         />
         <div>
           <Text fontWeight={"semibold"}>{productdata?.title}</Text>
-          <Text>{productdata?.size}</Text>
-          <Text>{productdata?.quantity}x</Text>
+          <Flex gap={2}>
+            <Text>{quantity}x</Text>
+            <Text fontWeight={"bold"}>Ukuran: {query?.sz}</Text>
+          </Flex>
           <Text>Rp.{productdata?.price.toLocaleString("id-ID")}</Text>
         </div>
       </Flex>

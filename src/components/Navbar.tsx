@@ -38,7 +38,6 @@ export default function Navbar() {
     "/",
     "/user/profile",
     "/user/cart",
-    "/user/orders",
     "/products",
     "/products/details/[id]",
     "/products/search",

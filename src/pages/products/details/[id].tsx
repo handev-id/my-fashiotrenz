@@ -21,6 +21,7 @@ import { BsFillArrowRightCircleFill, BsFillCartPlusFill } from "react-icons/bs";
 import { useSession } from "next-auth/react";
 import ProductDetailLoad from "@/components/skeletons/detail";
 import { useRouter } from "next/router";
+
 const DetailPage = () => {
   const params = useParams();
   const { data, isLoading, error } = useProduct(params?.id as string);
@@ -46,16 +47,16 @@ const DetailPage = () => {
         },
         body: JSON.stringify(cartData),
       });
-      if (response.status === 200) {
-        toast({
-          title: "Suksess",
-          description: "Produk ditambahkan ke keranjang",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-      }
       return response;
+    },
+    onSuccess: () => {
+      toast({
+        title: "Suksess",
+        description: "Produk ditambahkan ke keranjang",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
     },
   });
 
@@ -82,6 +83,26 @@ const DetailPage = () => {
       return null;
     } else {
       mutate(product);
+    }
+  };
+
+  const handleCheckout = () => {
+    if (!session || chooseSize == "") {
+      toast({
+        title: "Gagal",
+        description: !session
+          ? "Silahkan login terlebih dahulu"
+          : "Silahkan pilih ukuran terlebih dahulu",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      return null;
+    } else {
+      push({
+        pathname: `/checkout/${params?.id}`,
+        query: { id: params?.id, qty: 1, sz: chooseSize },
+      });
     }
   };
 
@@ -205,7 +226,7 @@ const DetailPage = () => {
                 color={"white"}
                 size={{ base: "md", md: "lg" }}
               >
-                <Flex gap={3} align={"center"} onClick={() => push(``)}>
+                <Flex gap={3} align={"center"} onClick={() => handleCheckout()}>
                   Checkout
                   <BsFillArrowRightCircleFill />
                 </Flex>

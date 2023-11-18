@@ -13,7 +13,7 @@ import MetaTag from "@/components/MetaTag";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: true,
     },
   },
 });
