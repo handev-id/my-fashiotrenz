@@ -1,15 +1,21 @@
 import { Colors } from "@/components/ColorScheme";
-import { Box, Container, Flex, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Heading,
+  Image,
+  Text,
+} from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
-import { FaArrowLeft } from "react-icons/fa";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { TbTruckDelivery } from "react-icons/tb";
+import { FaClockRotateLeft } from "react-icons/fa6";
+import HeaderRoom from "@/components/HeaderRoom";
 
 const OrdersPage = () => {
   const { data: session }: any = useSession();
-  const { back } = useRouter();
-
   const { data, isLoading } = useQuery({
     queryKey: ["orders"],
     queryFn: async () => {
@@ -19,26 +25,13 @@ const OrdersPage = () => {
   });
 
   const ordersDataFiltered = data?.orders.filter((order: any) => {
-    return order.userName === session?.user.fullname;
+    return order.accountName === session?.user.fullname;
   });
 
   return (
     <div style={{ backgroundColor: Colors.fourthirty, height: "100vh" }}>
-      <Flex bg={Colors.secondary} h={20} align={"center"}>
-        <Box
-          cursor={"pointer"}
-          onClick={() => back()}
-          style={{ margin: "0 20px" }}
-          _hover={{ opacity: "70%" }}
-          bg={"#067d68"}
-          p={3}
-          rounded={"lg"}
-        >
-          <FaArrowLeft color="white" fontSize={22} />
-        </Box>
-      </Flex>
-
-      <Container maxW={"container.xl"} bg={"white"} h={300} shadow={"lg"}>
+      <HeaderRoom />
+      <Container maxW={"container.xl"} p={0} bg={"white"}>
         {ordersDataFiltered?.map((order: any) => (
           // <Link href={link.path}>
           <Box
@@ -46,17 +39,64 @@ const OrdersPage = () => {
             mt={3}
             style={{
               fontWeight: "bold",
-              fontSize: 18,
               width: "100%",
             }}
-            border={"2px"}
-            borderColor={Colors.fourthirty}
-            _hover={{ bg: Colors.fourthirty }}
-            p={3}
+            p={{ base: 1, md: 3 }}
             rounded={"lg"}
           >
-            <Flex align={"center"} gap={2}>
-              <Image src={order.image} />
+            <Flex justify={"space-between"}>
+              <div>
+                <Flex gap={2}>
+                  <Image
+                    objectFit={"contain"}
+                    src={order.image}
+                    h={{ base: 50, md: 100 }}
+                    w={{ base: 50, md: 100 }}
+                  />
+                  <div>
+                    <Heading size={{ base: "xs", md: "md" }}>
+                      {order.title}
+                    </Heading>
+                    <Flex gap={2}>
+                      <Text fontWeight={700} opacity={"80%"}>
+                        {order.quantity}x
+                      </Text>
+                      <p style={{ opacity: "80%", fontSize: 14 }}>
+                        Ukuran: {order.size}
+                      </p>
+                    </Flex>
+                    <p style={{ marginTop: "10px" }}>
+                      Rp.{order.price.toLocaleString("id-ID")}
+                    </p>
+                  </div>
+                </Flex>
+              </div>
+
+              <div>
+                <Button
+                  size={{ base: "xs", md: "md" }}
+                  bg={Colors.secondary}
+                  color={"white"}
+                  px={3}
+                  rounded={"lg"}
+                  py={1}
+                >
+                  {order.status ? (
+                    <Flex gap={2} align={"center"}>
+                      <TbTruckDelivery />
+                      Sedang Dikirim
+                    </Flex>
+                  ) : (
+                    <Flex gap={2} align={"center"}>
+                      <FaClockRotateLeft />
+                      Menunggu Pembayaran
+                    </Flex>
+                  )}
+                </Button>
+                <Text fontSize={14} mt={10} textAlign={"end"}>
+                  {order.timestamp}
+                </Text>
+              </div>
             </Flex>
           </Box>
           // </Link>

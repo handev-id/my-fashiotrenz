@@ -1,5 +1,3 @@
-"use client";
-
 import {
   IconButton,
   Avatar,
@@ -26,9 +24,7 @@ import {
   FiTrendingUp,
   FiCompass,
   FiStar,
-  FiSettings,
   FiMenu,
-  FiBell,
   FiChevronDown,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
@@ -207,8 +203,16 @@ type SidebarWithHeaderProps = {
   children: ReactNode;
 };
 
+import { useSession } from "next-auth/react";
+import NotFoundPage from "@/pages/404";
+
 const SidebarWithHeader: React.FC<SidebarWithHeaderProps> = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data: session } = useSession();
+
+  if (!session) {
+    return <NotFoundPage />;
+  }
 
   return (
     <Box minH="100vh" bg={"gray.100"}>

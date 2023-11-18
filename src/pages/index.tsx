@@ -21,11 +21,11 @@ import { useProducts } from "@/hooks/useProducts";
 
 export default function Home({ content }: any) {
   const { push } = useRouter();
+  const router = useRouter();
+
   const { data, isLoading, error } = useProducts();
 
-  // UPDATES TESTING
-
-  if (content.length === 0) {
+  if (router.isFallback) {
     return <Loading />;
   }
 

@@ -17,8 +17,10 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FaArrowLeft } from "react-icons/fa";
 import { useSession } from "next-auth/react";
+import { SuccessModal } from "@/components/SuccessModal";
+import Loading from "@/components/LoadingPage";
+import HeaderRoom from "@/components/HeaderRoom";
 
 const schema = yup.object({
   email: yup.string().email().required("Isi Email"),
@@ -30,14 +32,9 @@ const schema = yup.object({
 const CheckoutPage = () => {
   const { data: session }: any = useSession();
   const {
-    push,
     query: { id, qty, sz },
-    back,
   }: any = useRouter();
   const [rekeningName, setRekeningName] = useState<string>("");
-  if (!session) {
-    return null;
-  }
 
   const {
     data: product,
@@ -63,19 +60,23 @@ const CheckoutPage = () => {
       ...data,
       payment: paymentsMethode[choosePayment as number].title,
       userRekening: rekeningName,
-      product: product.id,
-      title: product.title,
-      price: product.price,
+      product: product?.product.id,
+      title: product?.product.title,
+      price: product?.product.price,
       quantity: qty,
       size: sz,
       status: false,
-      image: product.thumbnail,
+      image: product?.product.thumbnail,
       accountName: session?.user?.fullname,
       timestamp: new Date().toDateString(),
     });
   };
 
-  const { mutate, isLoading: loadingOrder } = useMutation({
+  const {
+    mutate,
+    isLoading: loadingOrder,
+    isSuccess,
+  } = useMutation({
     mutationFn: async (data: any) => {
       const response = await fetch(`/api/post/orders`, {
         method: "POST",
@@ -86,26 +87,16 @@ const CheckoutPage = () => {
       });
       return response;
     },
-    onSuccess: () => {
-      push("/user/orders");
-    },
   });
 
   return (
     <>
-      <Flex h={"70px"} bg={Colors.secondary} align={"center"}>
-        <Box
-          cursor={"pointer"}
-          onClick={() => back()}
-          style={{ margin: "0 20px" }}
-          _hover={{ opacity: "70%" }}
-          bg={"#067d68"}
-          p={3}
-          rounded={"lg"}
-        >
-          <FaArrowLeft color="white" fontSize={22} />
-        </Box>
-      </Flex>
+      {loadingOrder && <Loading />}
+      <SuccessModal
+        onOpen={isSuccess ? true : false}
+        redirect={"/user/orders"}
+      />
+      <HeaderRoom />
       <Flex
         bg={Colors.fourthirty}
         p={{ base: 5, lg: 10 }}
@@ -130,7 +121,7 @@ const CheckoutPage = () => {
           pos={"relative"}
           rounded={"lg"}
           bg={"white"}
-          shadow={"lg"}
+          shadow={"md"}
           pt={5}
           px={5}
           w={{ base: "full", lg: "80%" }}
