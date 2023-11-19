@@ -6,13 +6,23 @@ import {
   Flex,
   Heading,
   Image,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Stack,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import HeaderRoom from "@/components/HeaderRoom";
+import Loading from "@/components/LoadingPage";
 
 const OrdersPage = () => {
   const { data: session }: any = useSession();
@@ -27,6 +37,10 @@ const OrdersPage = () => {
   const ordersDataFiltered = data?.orders.filter((order: any) => {
     return order.accountName === session?.user.fullname;
   });
+
+  if (!ordersDataFiltered) {
+    return <Loading />;
+  }
 
   return (
     <div style={{ backgroundColor: Colors.fourthirty, height: "100vh" }}>
@@ -84,7 +98,7 @@ const OrdersPage = () => {
                   {order.status ? (
                     <Flex gap={2} align={"center"}>
                       <TbTruckDelivery />
-                      Sedang Dikirim
+                      Dikirim
                     </Flex>
                   ) : (
                     <Flex gap={2} align={"center"}>
@@ -93,9 +107,20 @@ const OrdersPage = () => {
                     </Flex>
                   )}
                 </Button>
-                <Text fontSize={14} mt={10} textAlign={"end"}>
+                <Text fontSize={14} textAlign={"end"}>
                   {order.timestamp}
                 </Text>
+                <Flex justify={"end"}>
+                  <DetailOrder
+                    name={order.name}
+                    email={order.email}
+                    phone={order.phone}
+                    address={order.address}
+                    payment={order.payment}
+                    userRekening={order.userRekening}
+                    status={order.status}
+                  />
+                </Flex>
               </div>
             </Flex>
           </Box>
@@ -107,3 +132,72 @@ const OrdersPage = () => {
 };
 
 export default OrdersPage;
+
+interface DetailOrderProps {
+  address?: string;
+  phone?: number;
+  name?: string;
+  email?: string;
+  payment?: string;
+  userRekening?: string;
+  status?: boolean;
+}
+
+const DetailOrder: React.FC<DetailOrderProps> = ({
+  address,
+  phone,
+  name,
+  email,
+  payment,
+  userRekening,
+  status,
+}) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  return (
+    <>
+      <Button onClick={onOpen} size={"sm"} mt={2}>
+        Detail
+      </Button>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Detail Pesanan</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Stack>
+              <Heading size={"sm"}>Nama Penerima: {name}</Heading>
+              <Heading size={"sm"}>Email: {email}</Heading>
+              <Heading size={"sm"}>Nomor Telpon: {phone}</Heading>
+              <Text>Alamat: {address}</Text>
+              <Text fontWeight={"bold"} mt={2} fontSize={20}>
+                Metode Pembayaran: {payment}
+              </Text>
+              <Text fontSize={18}>Rekening Anda: {userRekening}</Text>
+              <Text
+                fontWeight={"bold"}
+                color={Colors.secondary}
+                mt={2}
+                fontSize={20}
+              >
+                Status: {status ? "Dikirim" : "Menunggu Pembayaran"}
+              </Text>
+            </Stack>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              bg={Colors.secondary}
+              color={"white"}
+              _hover={{ bg: Colors.hoverPrimary }}
+              mr={3}
+              onClick={onClose}
+            >
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};

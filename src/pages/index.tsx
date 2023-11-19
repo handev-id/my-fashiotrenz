@@ -25,7 +25,7 @@ export default function Home({ content }: any) {
 
   const { data, isLoading, error } = useProducts();
 
-  if (router.isFallback) {
+  if (!content) {
     return <Loading />;
   }
 
