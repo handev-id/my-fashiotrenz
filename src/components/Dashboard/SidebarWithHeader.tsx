@@ -208,9 +208,9 @@ import NotFoundPage from "@/pages/404";
 
 const SidebarWithHeader: React.FC<SidebarWithHeaderProps> = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
 
-  if (!session) {
+  if (session?.user.role !== "admin" || !session) {
     return <NotFoundPage />;
   }
 

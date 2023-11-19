@@ -34,5 +34,5 @@ const profilesData = [
     path: "/user/password",
     icon: <AiFillLock />,
   },
-  { title: "Pesanan", path: "/user//orders", icon: <TbTruckDelivery /> },
+  // { title: "Pesanan", path: "/user//orders", icon: <TbTruckDelivery /> },
 ];

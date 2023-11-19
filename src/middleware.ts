@@ -8,8 +8,8 @@ export function mainMiddleware(req: NextRequest) {
 }
 
 export default withAuth(mainMiddleware, [
-  "/admin/dashboard",
-  "/admin/dashboard/Content",
-  "/admin/dashboard/Products",
-  "/admin/dashboard/Update",
+  "/dashboard",
+  "/dashboard/products",
+  "/dashboard/upload",
+  "/dashboard/orders",
 ]);

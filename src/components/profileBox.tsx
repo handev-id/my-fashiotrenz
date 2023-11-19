@@ -3,16 +3,17 @@ import {
   Flex,
   Heading,
   Box,
-  Center,
   Avatar,
   Text,
   Stack,
   useToast,
-  HStack,
 } from "@chakra-ui/react";
 import { Colors } from "./ColorScheme";
 import { BiLogIn, BiLogOut } from "react-icons/bi";
 import { signIn, signOut } from "next-auth/react";
+import Link from "next/link";
+import { FaAddressBook } from "react-icons/fa";
+import { TbTruckDelivery } from "react-icons/tb";
 
 type BCProps = {
   role: string | null;
@@ -88,6 +89,32 @@ const Breadcrumbs: React.FC<BCProps> = ({
               </Box>
               // </Link>
             ))}
+            <Link
+              href={"/user/orders"}
+              style={{ display: isLogin ? "block" : "none" }}
+            >
+              <Box
+                cursor={"pointer"}
+                mt={3}
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 18,
+                  width: "100%",
+                }}
+                border={"2px"}
+                borderColor={Colors.fourthirty}
+                _hover={{ bg: Colors.fourthirty }}
+                p={3}
+                rounded={"lg"}
+              >
+                <Flex align={"center"} gap={2}>
+                  <div style={{ fontSize: 24 }}>
+                    <TbTruckDelivery />
+                  </div>
+                  Pesanan
+                </Flex>
+              </Box>
+            </Link>
             <Box
               onClick={() => (isLogin ? signOut() : signIn())}
               cursor={"pointer"}
