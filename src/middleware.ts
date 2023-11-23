@@ -12,4 +12,7 @@ export default withAuth(mainMiddleware, [
   "/dashboard/products",
   "/dashboard/upload",
   "/dashboard/orders",
+  "/user/orders",
+  "/user/password",
+  "/user/address",
 ]);

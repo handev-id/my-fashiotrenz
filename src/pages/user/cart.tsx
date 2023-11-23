@@ -1,7 +1,7 @@
 import { Colors } from "@/components/ColorScheme";
 import CartItem from "@/components/cart/CartItem";
 import OrderSummary from "@/components/cart/OrderSummary";
-import { Box, Button, Flex, Heading, Spinner } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useCarts } from "@/hooks/useProducts";
 import Link from "next/dist/client/link";

@@ -4,13 +4,13 @@ import { FaArrowLeft, FaHome } from "react-icons/fa";
 import { Colors } from "./ColorScheme";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import NotFoundPage from "@/pages/404";
+import Loading from "./LoadingPage";
 
 const HeaderRoom = () => {
   const { back, push } = useRouter();
   const { data: session }: any = useSession();
   if (!session) {
-    return <NotFoundPage />;
+    return <Loading />;
   }
 
   return (

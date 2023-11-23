@@ -33,18 +33,10 @@ const CheckoutPage = () => {
   const { data: session }: any = useSession();
   const {
     query: { id, qty, sz },
-  }: any = useRouter();
-  const [rekeningName, setRekeningName] = useState<string>("");
+  } = useRouter();
 
-  const {
-    data: product,
-    isLoading,
-    refetch,
-  } = useQuery(["product"], async () => {
-    const res = await fetch(`/api/get/product/${id}`);
-    return res.json();
-  });
-
+  const [rekeningName, setRekeningName] = useState<string | null>(null);
+  const { data: product, isLoading } = useProduct(id as string);
   const [choosePayment, setChoosePayment] = useState<number | null>(null);
 
   const {

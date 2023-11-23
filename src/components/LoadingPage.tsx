@@ -1,5 +1,6 @@
 import { Center, Text, Spinner } from "@chakra-ui/react";
 import { useState } from "react";
+import { Colors } from "./ColorScheme";
 
 const Loading = () => {
   const [isError, setIsError] = useState<boolean>(false);
@@ -12,7 +13,7 @@ const Loading = () => {
     <Center
       pos={"fixed"}
       zIndex={100}
-      bg={"rgba(0, 0, 0, 0.297)"}
+      bg={Colors.fourthirty}
       w={"full"}
       h={"100vh"}
       left={0}
@@ -26,7 +27,7 @@ const Loading = () => {
           gap: 10,
         }}
       >
-        <Spinner size={"xl"} color={"white"} />
+        <div className="spinner"></div>
         {isError && <Text>Network Error, Refresh Browser anda</Text>}
       </div>
     </Center>
