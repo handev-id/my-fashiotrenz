@@ -18,14 +18,27 @@ import Footer from "@/components/Footer";
 import Category from "@/components/Category";
 import Loading from "@/components/LoadingPage";
 import { useProducts } from "@/hooks/useProducts";
+import { useQuery } from "@tanstack/react-query";
 
-export default function Home({ content }: any) {
+export default function Home() {
   const { push } = useRouter();
-  const router = useRouter();
-
   const { data, isLoading, error } = useProducts();
 
-  if (!content) {
+  const getRandomProducts = (amountProduct: number) => {
+    const randomProducts = data?.products?.sort(() => Math.random() - 0.5);
+    return randomProducts?.slice(0, amountProduct);
+  };
+  const productsRecomendations = getRandomProducts(8);
+
+  const { data: content, isLoading: isLoadingContent } = useQuery({
+    queryKey: ["content"],
+    queryFn: async () => {
+      const res = await fetch("/api/get/content");
+      return res.json();
+    },
+  });
+
+  if (isLoadingContent) {
     return <Loading />;
   }
 
@@ -49,14 +62,14 @@ export default function Home({ content }: any) {
                   fontWeight={900}
                   size={{ base: "2xl", lg: "3xl" }}
                 >
-                  {content[0]?.heading}
+                  {content?.content[0]?.heading}
                 </Heading>
                 <Text
                   opacity={"90%"}
                   my={3}
                   fontSize={{ base: "md", lg: "xl" }}
                 >
-                  {content[0]?.description}
+                  {content?.content[0]?.description}
                 </Text>
                 <HStack mt={{ base: 5, lg: 10 }} spacing={{ base: 3, lg: 6 }}>
                   <Button
@@ -95,13 +108,10 @@ export default function Home({ content }: any) {
                 bg={"white"}
               >
                 <Image
-                  src={
-                    content[0]?.banner
-                      ? content[0]?.banner
-                      : "https://firebasestorage.googleapis.com/v0/b/ecommerce-nextjs-ed19d.appspot.com/o/1qq.jpg?alt=media&token=e4684909-e38b-454d-8d81-5997fa49110b&_gl=1*1vmmjj9*_ga*OTM3MTc5MDkxLjE2OTYwMDA5Njc.*_ga_CW55HF8NVT*MTY5ODIxODgyNC41Mi4xLjE2OTgyMTg5OTQuMzEuMC4w"
-                  }
+                  src={content?.content[0].banner}
                   mx={"auto"}
                   w={{ base: "70%", lg: 320 }}
+                  alt="banner fashiotrendz"
                 />
               </Box>
             </Flex>
@@ -116,7 +126,7 @@ export default function Home({ content }: any) {
             flexDirection={{ base: "column", lg: "row" }}
           >
             <Box w={{ base: "full", lg: "75%" }}>
-              <Carousel images={content[2]?.images} />
+              <Carousel images={content?.content[2]?.images} />
             </Box>
             <Box
               bg={"white"}
@@ -125,11 +135,12 @@ export default function Home({ content }: any) {
               h={"full"}
             >
               <Image
-                src={content[2]?.model}
+                src={content?.content[2]?.model}
                 mx={"auto"}
                 w={{ base: "70%", lg: "full" }}
                 objectFit={"cover"}
                 h={{ base: "full", lg: "400px" }}
+                alt="fashiotrendz model banner"
               />
             </Box>
           </Box>
@@ -160,7 +171,7 @@ export default function Home({ content }: any) {
               Rekomendasi Produk
             </Heading>
             <ProductsList
-              data={data?.products}
+              data={productsRecomendations}
               isLoading={isLoading}
               error={error}
             />
@@ -199,7 +210,7 @@ export default function Home({ content }: any) {
                 color={"white"}
                 as={"p"}
               >
-                {content[1]?.description}
+                {content?.content[1]?.description}
               </Text>
               <Link
                 fontSize={"lg"}
@@ -211,7 +222,12 @@ export default function Home({ content }: any) {
               </Link>
             </Box>
             <Box w={{ base: "full", lg: "50%" }}>
-              <Image w={250} mx={"auto"} src={content[1]?.image} />
+              <Image
+                w={250}
+                mx={"auto"}
+                src={content?.content[1]?.image}
+                alt="fashiotrendz model image"
+              />
             </Box>
           </Flex>
         </Box>
@@ -226,17 +242,4 @@ export default function Home({ content }: any) {
       </main>
     </>
   );
-}
-
-export async function getServerSideProps() {
-  const response = await fetch(
-    "https://fashiotrendz.handev.my.id/api/get/content"
-  );
-  const data = await response.json();
-
-  return {
-    props: {
-      content: data.content,
-    },
-  };
 }

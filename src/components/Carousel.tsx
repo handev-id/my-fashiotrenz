@@ -37,7 +37,7 @@ const Carousel: React.FC<CrslProps> = ({ images }) => {
               <Image
                 h="full"
                 src={slide}
-                alt="carousel image"
+                alt="carousel image fashiotrendz"
                 backgroundSize="cover"
                 objectFit={"cover"}
                 w="full"

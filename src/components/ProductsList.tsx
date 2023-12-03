@@ -51,7 +51,7 @@ const ProductsList: React.FC<ProductsProps> = ({ data, isLoading, error }) => {
     },
   });
 
-  const handleAddToCarts = (product: any) => {
+  const handleAddToCarts: Function = (product: any) => {
     const data: any = {
       id: product.id,
       title: product.title,
@@ -107,6 +107,7 @@ const ProductsList: React.FC<ProductsProps> = ({ data, isLoading, error }) => {
                 objectFit={"contain"}
                 w={"full"}
                 h={{ base: "70%", md: "80%" }}
+                alt={product.title}
               />
               <Heading
                 opacity={"80%"}
