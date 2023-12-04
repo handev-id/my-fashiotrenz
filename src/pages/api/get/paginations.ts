@@ -51,6 +51,7 @@ export default async function handler(
       code: 200,
       data: filteredProducts,
       totalPages,
+      currentPage: page,
     });
   } catch (error) {
     if (error instanceof Error) {
