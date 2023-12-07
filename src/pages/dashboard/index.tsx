@@ -1,5 +1,6 @@
 import { Colors } from "@/components/ColorScheme";
 import SidebarWithHeader from "@/components/Dashboard/SidebarWithHeader";
+import Loading from "@/components/LoadingPage";
 import { Box, Center, Flex, Heading, Text } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 
@@ -11,6 +12,10 @@ const DashboardPage = () => {
       return data;
     },
   });
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const Today = new Date().toDateString();
 
