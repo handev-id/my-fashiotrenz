@@ -76,6 +76,7 @@ export function ModalSearch() {
                   {...register("search")}
                   focusBorderColor={Colors.secondary}
                   placeholder="Jacket pria"
+                  required
                 />
                 <Button type="submit">
                   <BsSearch size={24} />

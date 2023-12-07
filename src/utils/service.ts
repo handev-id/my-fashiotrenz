@@ -178,3 +178,11 @@ export async function Login(userData: { email: string }) {
     return null;
   }
 }
+
+export async function dashboard() {
+  const snapshot = await getDocs(collection(db, "dashboard"));
+  const data = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+}

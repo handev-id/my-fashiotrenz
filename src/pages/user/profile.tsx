@@ -10,6 +10,7 @@ import { Box } from "@chakra-ui/react";
 
 const ProfilePage = () => {
   const { data }: any = useSession();
+  console.log(data);
 
   return (
     <Box mt={50}>
