@@ -7,13 +7,14 @@ import { AiFillLock } from "react-icons/ai";
 import Loading from "@/components/LoadingPage";
 import ProfileLoad from "@/components/skeletons/profile";
 import { Box } from "@chakra-ui/react";
+import MetaTag from "@/components/MetaTag";
 
 const ProfilePage = () => {
   const { data }: any = useSession();
-  console.log(data);
 
   return (
     <Box mt={50}>
+      <MetaTag title={`Profile - Fashiotrenz`} description="Profile User Fashiotrenz" />
       <Breadcrumbs
         role={data?.user?.role}
         href="/admin/dashboard/Home"

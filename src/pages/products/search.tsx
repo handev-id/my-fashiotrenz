@@ -1,5 +1,6 @@
 import { Colors } from "@/components/ColorScheme";
 import Loading from "@/components/LoadingPage";
+import MetaTag from "@/components/MetaTag";
 import ProductsList from "@/components/ProductsList";
 import ProductLoad from "@/components/skeletons/product";
 import { Box, Heading } from "@chakra-ui/react";
@@ -37,6 +38,7 @@ const SearchPage = () => {
 
   return (
     <Box py={100} bg={Colors.fourthirty}>
+      <MetaTag title={`Search ${query?.q}`} description="Search Produk" />
       <ProductsList data={products?.products} />
       {<Heading textAlign={"center"}>{products?.message}</Heading>}
     </Box>

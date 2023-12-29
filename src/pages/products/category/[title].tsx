@@ -1,5 +1,6 @@
 import { Colors } from "@/components/ColorScheme";
 import Loading from "@/components/LoadingPage";
+import MetaTag from "@/components/MetaTag";
 import ProductsList from "@/components/ProductsList";
 import ProductLoad from "@/components/skeletons/product";
 import { useProducts } from "@/hooks/useProducts";
@@ -24,11 +25,14 @@ const CategoryPage = () => {
   }
 
   return (
-    <Box py={100} bg={Colors.fourthirty}>
-      <ProductsList data={filteredProducts} />
-      {/* {<Heading textAlign={"center"}>{products?.message}</Heading>} */}
-      {isLoading && <Loading />}
-    </Box>
+    <body style={{ background: Colors.fourthirty, height: '100vh' }}>
+      <MetaTag title={`Category - ${titleCategory}`} description="Kategori Pakaian Di Fashiotrenz" />
+      <Box py={100} bg={Colors.fourthirty}>
+        <ProductsList data={filteredProducts} />
+        {/* {<Heading textAlign={"center"}>{products?.message}</Heading>} */}
+        {isLoading && <Loading />}
+      </Box>
+    </body>
   );
 };
 

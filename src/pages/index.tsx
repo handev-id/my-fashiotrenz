@@ -19,6 +19,7 @@ import Category from "@/components/Category";
 import Loading from "@/components/LoadingPage";
 import { useProducts } from "@/hooks/useProducts";
 import { useQuery } from "@tanstack/react-query";
+import MetaTag from "@/components/MetaTag";
 
 export default function Home() {
   const { push } = useRouter();
@@ -44,6 +45,7 @@ export default function Home() {
 
   return (
     <>
+      <MetaTag title="Home - Fashiotrenz" description="FashioTrendz Indonesia Beli Pakaian Terbaik Anda Disini" />
       <main style={{ backgroundColor: Colors.fourthirty }}>
         <div className="banner-home">
           <Container maxW={"container.xl"} px={{ base: 3, md: 5, lg: 10 }}>

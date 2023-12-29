@@ -9,6 +9,7 @@ import "@fontsource/lato/400.css";
 import "@fontsource/lato/700.css";
 import "@fontsource/lato/900.css";
 import MetaTag from "@/components/MetaTag";
+import NextProgress from "next-progress";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,8 +36,9 @@ export default function App({
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider theme={theme}>
-          <MetaTag />
+          <MetaTag title="Fashiotrendz" description="Fashiotrendz Ecommerce Indonesian" />
           <Navbar />
+          <NextProgress delay={300} options={{ showSpinner: false }} color='#078e76' height="3px" />
           <Component {...pageProps} />
         </ChakraProvider>
       </QueryClientProvider>

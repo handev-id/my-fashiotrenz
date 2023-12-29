@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { useCarts } from "@/hooks/useProducts";
 import Link from "next/dist/client/link";
 import CartLoad from "@/components/skeletons/cart";
+import MetaTag from "@/components/MetaTag";
 
 const CartPage = () => {
   const { data: session }: any = useSession();
@@ -18,41 +19,50 @@ const CartPage = () => {
 
   if (isLoading) {
     return (
-      <Flex py={100} justify={"center"} bg={Colors.fourthirty}>
-        <CartLoad />
-      </Flex>
+      <>
+        <MetaTag title="Kosong! - User - Fashiotrenz" description="Keranjang Pakaian Fashiotrenz" />
+        <Flex py={100} justify={"center"} bg={Colors.fourthirty}>
+          <CartLoad />
+        </Flex>
+      </>
     );
   }
 
   if (session && cartDataFilter.length === 0) {
     return (
-      <Flex py={100} bg={Colors.fourthirty} justify={"center"}>
-        <Heading fontSize={{ base: 20, lg: 30 }} opacity={"80%"}>
-          Keranjang Kosong
-        </Heading>
-      </Flex>
+      <>
+        <MetaTag title="Kosong! - User - Fashiotrenz" description="Keranjang Pakaian Fashiotrenz" />
+        <Flex py={100} bg={Colors.fourthirty} justify={"center"}>
+          <Heading fontSize={{ base: 20, lg: 30 }} opacity={"80%"}>
+            Keranjang Kosong
+          </Heading>
+        </Flex>
+      </>
     );
   }
 
   if (!session) {
     return (
-      <Flex py={100} bg={Colors.fourthirty} justify={"center"}>
-        <div>
-          <Heading fontSize={{ base: 20, lg: 30 }} opacity={"80%"}>
-            Silahkan Login Terlebih Dulu
-          </Heading>
-          <Link href={"/auth/login"}>
-            <Button
-              mt={5}
-              bg={Colors.secondary}
-              _hover={{ bg: Colors.hoverPrimary }}
-              color={"white"}
-            >
-              Login Sekarang
-            </Button>
-          </Link>
-        </div>
-      </Flex>
+      <>
+        <MetaTag title="Keranjang - User - Fashiotrenz" description="Keranjang Pakaian Fashiotrenz" />
+        <Flex py={100} bg={Colors.fourthirty} justify={"center"}>
+          <div>
+            <Heading fontSize={{ base: 20, lg: 30 }} opacity={"80%"}>
+              Silahkan Login Terlebih Dulu
+            </Heading>
+            <Link href={"/auth/login"}>
+              <Button
+                mt={5}
+                bg={Colors.secondary}
+                _hover={{ bg: Colors.hoverPrimary }}
+                color={"white"}
+              >
+                Login Sekarang
+              </Button>
+            </Link>
+          </div>
+        </Flex>
+      </>
     );
   }
 

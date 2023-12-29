@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import Link from "next/dist/client/link";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import MetaTag from "@/components/MetaTag";
 
 const schema = yup.object({
   email: yup.string().required("Isi Email!").email("Berikan Format Email"),
@@ -72,6 +73,7 @@ const RegisterPage = () => {
 
   return (
     <Center h="100vh" bg={Colors.fourthirty} color="white" py={10}>
+      <MetaTag title="Register - Fashiotrendz" description="Register Fashiotrenz Here" />
       <Card bg="white" w={350} mx={2} py={5}>
         <CardBody>
           <Heading size="lg" textAlign="center" color={Colors.secondary}>

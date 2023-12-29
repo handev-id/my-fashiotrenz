@@ -17,6 +17,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import MetaTag from "@/components/MetaTag";
 
 const schema = yup.object({
   email: yup.string().required("Isi Email!").email("Berikan Format Email"),
@@ -65,6 +66,7 @@ const LoginPage = () => {
   });
   return (
     <Center h="100vh" bg={Colors.fourthirty} color="white" py={10}>
+      <MetaTag title="Login - Fashiotrendz" description="Login In Fashiotrenz" />
       <Card bg="white" w={350} mx={2} py={5}>
         <CardBody>
           <Heading size="lg" textAlign="center" color={Colors.secondary}>

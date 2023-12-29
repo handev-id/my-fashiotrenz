@@ -23,6 +23,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import HeaderRoom from "@/components/HeaderRoom";
 import Loading from "@/components/LoadingPage";
+import MetaTag from "@/components/MetaTag";
 
 const OrdersPage = () => {
   const { data: session }: any = useSession();
@@ -44,6 +45,7 @@ const OrdersPage = () => {
 
   return (
     <div style={{ backgroundColor: Colors.fourthirty, height: "100vh" }}>
+      <MetaTag title="Orders - User - Fashiotrenz" description="Orderan anda" />
       <HeaderRoom />
       <Container maxW={"container.xl"} p={0} bg={"white"}>
         {ordersDataFiltered?.map((order: any) => (

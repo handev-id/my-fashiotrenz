@@ -1,12 +1,12 @@
 import Head from "next/dist/shared/lib/head";
 
-const MetaTag = () => {
+const MetaTag = ({ title, description }: { title: string, description: string }) => {
   return (
     <Head>
-      <title>FashioTrendz Indonesia</title>
+      <title>{title}</title>
       <meta
         name="description"
-        content="Fashio Trendz adalah solusi terbaik untuk membat anda lebih percaya diri"
+        content={description}
       />
       <meta name="keyword" content="Fashio trendz" />
 
