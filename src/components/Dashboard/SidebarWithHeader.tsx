@@ -30,6 +30,7 @@ import {
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import Link from "next/link";
+import { useRouter } from "next/router"
 
 interface LinkItemProps {
   name: string;
@@ -41,6 +42,7 @@ interface NavItemProps extends FlexProps {
   icon: IconType;
   children: React.ReactNode;
   link: string;
+  bg: string;
 }
 
 interface MobileProps extends FlexProps {
@@ -52,14 +54,15 @@ interface SidebarProps extends BoxProps {
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Dashboard", icon: FiHome, link: "dashboard" },
-  { name: "Products", icon: FiPackage, link: "dashboard/products" },
-  { name: "Upload", icon: FiTrendingUp, link: "dashboard/upload" },
-  { name: "Content", icon: FiCompass, link: "dashboard/content" },
-  { name: "Orders", icon: FiStar, link: "dashboard/orders" },
+  { name: "Dashboard", icon: FiHome, link: "/dashboard" },
+  { name: "Products", icon: FiPackage, link: "/dashboard/products" },
+  { name: "Upload", icon: FiTrendingUp, link: "/dashboard/upload" },
+  { name: "Content", icon: FiCompass, link: "/dashboard/content" },
+  { name: "Orders", icon: FiStar, link: "/dashboard/orders" },
 ];
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const pathName = useRouter().pathname;
   return (
     <Box
       transition="3s ease"
@@ -77,8 +80,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} link={link.link} icon={link.icon}>
+      {LinkItems.map((link, index) => (
+        <NavItem bg={ link.link == pathName ? Colors.hoverPrimary : Colors.secondary} key={link.name} link={link.link} icon={link.icon}>
           {link.name}
         </NavItem>
       ))}
@@ -86,15 +89,19 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   );
 };
 
-const NavItem = ({ icon, children, link }: NavItemProps) => {
+
+
+const NavItem = ({ icon, children, link, bg }: NavItemProps) => {  
+
   return (
-    <Link href={`/${link}`} style={{ textDecoration: "none" }}>
+    <Link href={`${link}`} style={{ textDecoration: "none" }}>
       <Box color={"white"} _focus={{ boxShadow: "none" }}>
         <Flex
           mt={2}
           _hover={{
             bg: Colors.hoverPrimary,
           }}
+          bg={ bg }
           align="center"
           p="4"
           mx="4"

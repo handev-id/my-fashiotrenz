@@ -24,3 +24,21 @@ export type SessionType = {
   fullname: string;
   image: string;
 };
+
+export interface OrdersType {
+  id: string;
+  accountName: string;
+  address: string;
+  email: string;
+  image: string;
+  name: string;
+  payment: string;
+  phone: number;
+  price: number;
+  quantity: string;
+  size: string;
+  status: boolean;
+  timestamp: string;
+  title: string;
+  userRekening: string;
+}

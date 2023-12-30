@@ -75,7 +75,7 @@ const OrdersPage = () => {
                     </Heading>
                     <Flex gap={2}>
                       <Text fontWeight={700} opacity={"80%"}>
-                        {order.quantity}x
+                        {order.quantity}
                       </Text>
                       <p style={{ opacity: "80%", fontSize: 14 }}>
                         Ukuran: {order.size}
