@@ -10,6 +10,7 @@ import "@fontsource/lato/700.css";
 import "@fontsource/lato/900.css";
 import MetaTag from "@/components/MetaTag";
 import NextProgress from "next-progress";
+import Footer from "@/components/Footer";
 
 const queryClient = new QueryClient({
   defaultOptions: {

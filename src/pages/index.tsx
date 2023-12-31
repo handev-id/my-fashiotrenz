@@ -24,6 +24,7 @@ import MetaTag from "@/components/MetaTag";
 export default function Home() {
   const { push } = useRouter();
   const { data, isLoading, error } = useProducts();
+  
 
   const getRandomProducts = (amountProduct: number) => {
     const randomProducts = data?.products?.sort(() => Math.random() - 0.5);
@@ -110,7 +111,7 @@ export default function Home() {
                 bg={"white"}
               >
                 <Image
-                  src={content?.content[0].banner}
+                  src={content?.content[0]?.banner}
                   mx={"auto"}
                   w={{ base: "70%", lg: 320 }}
                   alt="banner fashiotrendz"

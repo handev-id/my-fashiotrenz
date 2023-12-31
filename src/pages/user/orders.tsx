@@ -35,12 +35,21 @@ const OrdersPage = () => {
     },
   });
 
-  const ordersDataFiltered = data?.orders.filter((order: any) => {
+  if (!data) {
+    return <Loading />
+  }
+
+  const ordersDataFiltered: Array<any> = data?.orders.filter((order: any) => {
     return order.accountName === session?.user.fullname;
   });
 
-  if (!ordersDataFiltered) {
-    return <Loading />;
+  if (ordersDataFiltered.length === 0) {
+    return (
+      <div style={{ backgroundColor: Colors.fourthirty, height: "100vh" }}>
+        <HeaderRoom />
+        <Heading textAlign={'center'} mt={5} size={'md'}>Pesanan anda kosong</Heading>
+      </div>
+    )
   }
 
   return (
@@ -132,6 +141,7 @@ const OrdersPage = () => {
     </div>
   );
 };
+
 
 export default OrdersPage;
 

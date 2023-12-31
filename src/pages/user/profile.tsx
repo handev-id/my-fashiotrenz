@@ -2,10 +2,7 @@ import Breadcrumbs from "@/components/profileBox";
 import { useSession } from "next-auth/react";
 import { AiFillEdit } from "react-icons/ai";
 import { FaAddressBook } from "react-icons/fa";
-import { TbTruckDelivery } from "react-icons/tb";
 import { AiFillLock } from "react-icons/ai";
-import Loading from "@/components/LoadingPage";
-import ProfileLoad from "@/components/skeletons/profile";
 import { Box } from "@chakra-ui/react";
 import MetaTag from "@/components/MetaTag";
 
@@ -14,7 +11,7 @@ const ProfilePage = () => {
 
   return (
     <Box mt={50}>
-      <MetaTag title={`Profile - Fashiotrenz`} description="Profile User Fashiotrenz" />
+      <MetaTag title={`Profile - ${data ? data?.user?.fullname : ""} Fashiotrendz`} description="Profile User Fashiotrenz" />
       <Breadcrumbs
         role={data?.user?.role}
         href="/admin/dashboard/Home"

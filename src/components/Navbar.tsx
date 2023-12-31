@@ -110,7 +110,7 @@ export default function Navbar() {
             spacing={6}
           >
             <Button
-              onClick={() => (data ? signOut() : signIn())}
+              onClick={() => (data ? signOut({ callbackUrl: '/' }) : signIn())}
               cursor="pointer"
               as={"a"}
               opacity="80%"

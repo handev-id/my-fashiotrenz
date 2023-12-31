@@ -114,7 +114,7 @@ export default function Footer() {
           justify={{ md: "space-between" }}
           align={{ md: "center" }}
         >
-          <Text>© 2023 Fashio Trendz Ecommerce Modern</Text>
+          <Text>© 2023 Fashio Trendz Ecommerce Modern | Made By <Link style={{color: Colors.secondary, fontWeight: "bold", textDecoration: "underline"}} href={"https://handev.my.id"} target={"_blank"}>Handev</Link></Text>
           <Stack direction={"row"} spacing={6}>
             <SocialButton label={"Twitter"} href={"#"}>
               <FaTwitter />

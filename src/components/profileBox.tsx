@@ -12,8 +12,8 @@ import { Colors } from "./ColorScheme";
 import { BiLogIn, BiLogOut } from "react-icons/bi";
 import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
-import { FaAddressBook } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
+import { FaArrowAltCircleRight } from "react-icons/fa";
 
 type BCProps = {
   role: string | null;
@@ -61,7 +61,16 @@ const Breadcrumbs: React.FC<BCProps> = ({
           <div style={{ textAlign: "center" }}>
             <Avatar />
             <Heading size={"lg"}>{username}</Heading>
-            <Text>{role}</Text>
+            <Flex align={"center"} gap={2} justify={"center"}>
+              <Text>{role}</Text>
+              {role == 'admin' && (
+                <Link href={'/dashboard'}>
+                  <span style={{ cursor: "pointer" }}>
+                    <FaArrowAltCircleRight />
+                  </span>
+                </Link>
+              )}
+            </Flex>
           </div>
           <div style={{ marginTop: 10 }}>
             {profilesData?.map((link) => (
