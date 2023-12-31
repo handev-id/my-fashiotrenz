@@ -24,7 +24,7 @@ import MetaTag from "@/components/MetaTag";
 export default function Home() {
   const { push } = useRouter();
   const { data, isLoading, error } = useProducts();
-  
+
 
   const getRandomProducts = (amountProduct: number) => {
     const randomProducts = data?.products?.sort(() => Math.random() - 0.5);
@@ -88,7 +88,7 @@ export default function Home() {
                     Beli Sekarang
                   </Button>
                   <Button
-                    onClick={() => push("/contact")}
+                    onClick={() => push("https://wa.me/6285770274043")}
                     color={"white"}
                     bg={"transparent"}
                     _hover={{
