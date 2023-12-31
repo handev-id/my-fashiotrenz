@@ -12,10 +12,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { deleteObject, ref } from "firebase/storage";
-import { useRouter } from "next/router";
 
 const ProductList = () => {
-  const { push } = useRouter();
   const { data, refetch } = useProducts();
 
   const deleteProduct = async (id: string, imagesId: string[]) => {
@@ -36,7 +34,7 @@ const ProductList = () => {
   return (
     <>
       <TableContainer>
-        <Table variant="simple" border={"1px solid gray"} mt={5}>
+        <Table variant="simple" rounded={'lg'} bg={"white"} mt={5}>
           <Thead>
             <Tr>
               <Th>Fill</Th>
@@ -58,8 +56,8 @@ const ProductList = () => {
                   <img src={product.thumbnail} width={60} alt="" />
                 </Td>
                 <Td>{product.title}</Td>
-                <Td>{product.description}</Td>
-                <Td>{product.price}</Td>
+                <Td>{product.description.slice(0, 20)}...</Td>
+                <Td>Rp. {product.price.toLocaleString('id')}</Td>
                 <Td>{product.stock}</Td>
                 <Td>
                   {/* <Button

@@ -42,7 +42,7 @@ const OrdersPage = () => {
               <Image src={order.image} w={{ base: '80px', lg: 100 }} objectFit={'contain'} />
               <div>
                 <Heading size={'md'}>{order.title}</Heading>
-                <Text fontWeight={'bold'}>Rp. {order.price}</Text>
+                <Text fontWeight={'bold'}>Rp. {order.price?.toLocaleString('id')}</Text>
                 <Text>Jumlah: <span style={{ fontWeight: 'bold' }}>{order.quantity}</span></Text>
                 <Text>Ukuran: <span style={{ fontWeight: 'bold' }}>{order.size}</span></Text>
                 <Text>Nama Akun: <span style={{ fontWeight: 'bold' }}>{order.accountName}</span></Text>
@@ -57,7 +57,7 @@ const OrdersPage = () => {
               </div>
             </Flex>
             <Flex direction={{ base: 'column', lg: 'row' }} gap={3} w={'full'} mt={5} justify={'space-between'}>
-              <Heading fontSize={{ base: 16, lg: 22 }}>STATUS: {!order.status ? "MENUNGGU PEMBAYARAN" : "PACKING"}</Heading>
+              <Heading fontSize={{ base: 16 }}>STATUS: {!order.status ? "MENUNGGU PEMBAYARAN" : "PENGIRIMAN"}</Heading>
               <Button isDisabled={order.status} onClick={()=> updatePayment(order.id as string)} bg={!order.status ? Colors.hoverPrimary : Colors.secondary} color={'white'} disabled={order.status} _hover={{ opacity: '70%' }}>{!order.status ? "Konfirmasi Pembayaran" : "Sudah Di Bayar"}</Button>
             </Flex>
           </Box>
