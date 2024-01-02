@@ -40,6 +40,9 @@ export default function Home() {
     },
   });
 
+  console.log(content);
+  
+
   if (isLoadingContent) {
     return <Loading />;
   }
@@ -65,14 +68,14 @@ export default function Home() {
                   fontWeight={900}
                   size={{ base: "2xl", lg: "3xl" }}
                 >
-                  {content?.content[0]?.heading}
+                  {content?.content[2]?.heading}
                 </Heading>
                 <Text
                   opacity={"90%"}
                   my={3}
                   fontSize={{ base: "md", lg: "xl" }}
                 >
-                  {content?.content[0]?.description}
+                  {content?.content[2]?.description}
                 </Text>
                 <HStack mt={{ base: 5, lg: 10 }} spacing={{ base: 3, lg: 6 }}>
                   <Button
@@ -111,7 +114,7 @@ export default function Home() {
                 bg={"white"}
               >
                 <Image
-                  src={content?.content[0]?.banner}
+                  src={content?.content[2]?.banner}
                   mx={"auto"}
                   w={{ base: "70%", lg: 320 }}
                   alt="banner fashiotrendz"
@@ -129,7 +132,7 @@ export default function Home() {
             flexDirection={{ base: "column", lg: "row" }}
           >
             <Box w={{ base: "full", lg: "75%" }}>
-              <Carousel images={content?.content[2]?.images} />
+              <Carousel images={content?.content[0]?.images} />
             </Box>
             <Box
               bg={"white"}
@@ -138,7 +141,7 @@ export default function Home() {
               h={"full"}
             >
               <Image
-                src={content?.content[2]?.model}
+                src={content?.content[0]?.model}
                 mx={"auto"}
                 w={{ base: "70%", lg: "full" }}
                 objectFit={"cover"}

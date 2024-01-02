@@ -8,6 +8,7 @@ export type ProductType = {
   size: string;
   quantity?: number | undefined;
   thumbnail: string;
+  tags?: any | undefined;
   images: Array<string>;
   productId?: string;
 };

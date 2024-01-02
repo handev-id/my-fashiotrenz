@@ -24,6 +24,8 @@ import { FaClockRotateLeft } from "react-icons/fa6";
 import HeaderRoom from "@/components/HeaderRoom";
 import Loading from "@/components/LoadingPage";
 import MetaTag from "@/components/MetaTag";
+import { OrdersType } from "@/types/types";
+import { useEffect, useState } from "react";
 
 const OrdersPage = () => {
   const { data: session }: any = useSession();
@@ -39,10 +41,11 @@ const OrdersPage = () => {
     return <Loading />
   }
 
-  const ordersDataFiltered: Array<any> = data?.orders.filter((order: any) => {
+  const ordersDataFiltered: Array<OrdersType> = data?.orders.filter((order: any) => {
     return order.accountName === session?.user.fullname;
   });
 
+  
   if (ordersDataFiltered.length === 0) {
     return (
       <div style={{ backgroundColor: Colors.fourthirty, height: "100vh" }}>
@@ -51,13 +54,13 @@ const OrdersPage = () => {
       </div>
     )
   }
-
+  
   return (
     <div style={{ backgroundColor: Colors.fourthirty, height: "100vh" }}>
       <MetaTag title="Orders - User - Fashiotrenz" description="Orderan anda" />
       <HeaderRoom />
       <Container maxW={"container.xl"} p={0} bg={"white"}>
-        {ordersDataFiltered?.map((order: any) => (
+        {ordersDataFiltered?.map((order: OrdersType, index) => (
           // <Link href={link.path}>
           <Box
             key={order.id}
@@ -91,7 +94,7 @@ const OrdersPage = () => {
                       </p>
                     </Flex>
                     <p style={{ marginTop: "10px" }}>
-                      Rp.{order.price.toLocaleString("id-ID")}
+                      Rp.{order.price?.toLocaleString("id-ID")}
                     </p>
                   </div>
                 </Flex>

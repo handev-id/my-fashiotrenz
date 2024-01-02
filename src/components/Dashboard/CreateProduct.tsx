@@ -10,6 +10,7 @@ import {
   Stack,
   Flex,
   useToast,
+  Textarea,
 } from "@chakra-ui/react";
 import { Colors } from "../ColorScheme";
 import { useMutation } from "@tanstack/react-query";
@@ -21,6 +22,7 @@ import { useUploadImage } from "@/hooks/uploadImage";
 const schema = yup.object({
   title: yup.string().required("Isi Judul!"),
   description: yup.string().required("Isi Deskripsi!"),
+  tags: yup.string().required("Isi Tag!"),
   price: yup.number().required("Isi Harga!"),
   stock: yup.number().required("Isi Stock!"),
   category: yup.string().required("Isi Kategori!"),
@@ -42,7 +44,7 @@ const UploadProduct = () => {
     if (imageUrl) {
       addImageToArray(imageUrl);
     }
-    if (imageArray?.length > 2) {
+    if (imageArray?.length === 3) {
       setDisableUPload(true);
     }
   }, [imageUrl]);
@@ -58,6 +60,7 @@ const UploadProduct = () => {
   const submitProduct = (data: any) => {
     Products({
       ...data,
+      tags: data.tags.split(","),
       thumbnail: imageArray[0],
       images: imageArray,
       createdAt: new Date(),
@@ -167,11 +170,8 @@ const UploadProduct = () => {
             {...register("price")}
             placeholder="Price"
           />
-          <Input
-            focusBorderColor={Colors.secondary}
-            {...register("description")}
-            placeholder="Description"
-          />
+          <Textarea h={"100px"} {...register("tags")} focusBorderColor={Colors.secondary} placeholder={"Tags:"} />
+          <Textarea h={"150px"} {...register("description")} focusBorderColor={Colors.secondary} placeholder={"Description"} />
           <Button
             type="submit"
             bg={Colors.primary}

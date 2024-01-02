@@ -58,7 +58,7 @@ const ProductsList: React.FC<ProductsProps> = ({ data, isLoading, error }) => {
       price: product.price,
       thumbnail: product.thumbnail,
       stock: product.stock,
-      size: "",
+      size: "M",
       quantity: 1,
     };
     if (!session) {
@@ -109,11 +109,8 @@ const ProductsList: React.FC<ProductsProps> = ({ data, isLoading, error }) => {
                 h={{ base: "70%", md: "80%" }}
                 alt={product.title}
               />
-              <Heading
-                opacity={"80%"}
-                w={"full"}
-                size={{ base: "xs", md: "md" }}
-              >
+              <Heading fontWeight={"semibold"} fontSize={{ base: 12, md: 16 }} opacity={"80%"}>
+                
                 {product.title}
               </Heading>
             </Stack>
@@ -146,7 +143,7 @@ const ProductsList: React.FC<ProductsProps> = ({ data, isLoading, error }) => {
                 <BsFillCartPlusFill color={"white"} fontSize={20} />
               </Box>
             </Button>
-            <Text
+            <Text fontWeight={"bold"}
               fontSize={{ base: "md", md: "2xl" }}
               color={Colors.secondary}
               textAlign={"end"}

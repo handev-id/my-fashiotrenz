@@ -82,7 +82,7 @@ const CheckoutPage = () => {
   });
 
   return (
-    <body style={{ background: Colors.fourthirty, height: '100vh' }}>
+    <div style={{ background: Colors.fourthirty, height: '100vh' }}>
       {loadingOrder && <Loading />}
       <SuccessModal
         onOpen={isSuccess ? true : false}
@@ -233,7 +233,7 @@ const CheckoutPage = () => {
           <Flex justify={"end"}></Flex>
         </Box>
       </Flex>
-    </body>
+    </div>
   );
 };
 

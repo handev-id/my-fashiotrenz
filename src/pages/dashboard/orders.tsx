@@ -5,7 +5,8 @@ import { db } from "@/utils/firebase"
 import { Box, Flex, Text, Heading, Image, Button, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody } from "@chakra-ui/react"
 import { collection, doc, getDocs, updateDoc } from "firebase/firestore"
 import React, { useEffect, useRef, useState } from "react"
-import { FaMapMarkerAlt, FaRegClock } from "react-icons/fa"
+import { FaMapMarkerAlt } from "react-icons/fa"
+
 
 const OrdersPage = () => {
   const [ordersData, setOrdersData] = useState<OrdersType[]>([])
@@ -21,17 +22,18 @@ const OrdersPage = () => {
   }
   useEffect(() => {
     getOrdersData();
-  }, [])
+  }, [ordersData])
 
   const updatePayment = async (id: string) => {
     const confirmUpdate = confirm("Yakin AKan Mengupdate Status Ini?")
-    if(confirmUpdate) {
+    if (confirmUpdate) {
       const res = await updateDoc(doc(db, 'orders', id), {
         status: true,
       })
       console.log(res);
     }
   }
+
 
   return (
     <SidebarWithHeader>
@@ -58,7 +60,7 @@ const OrdersPage = () => {
             </Flex>
             <Flex direction={{ base: 'column', lg: 'row' }} gap={3} w={'full'} mt={5} justify={'space-between'}>
               <Heading fontSize={{ base: 16 }}>STATUS: {!order.status ? "MENUNGGU PEMBAYARAN" : "PENGIRIMAN"}</Heading>
-              <Button isDisabled={order.status} onClick={()=> updatePayment(order.id as string)} bg={!order.status ? Colors.hoverPrimary : Colors.secondary} color={'white'} disabled={order.status} _hover={{ opacity: '70%' }}>{!order.status ? "Konfirmasi Pembayaran" : "Sudah Di Bayar"}</Button>
+              <Button isDisabled={order.status} onClick={() => updatePayment(order.id as string)} bg={!order.status ? Colors.hoverPrimary : Colors.secondary} color={'white'} disabled={order.status} _hover={{ opacity: '70%' }}>{!order.status ? "Konfirmasi Pembayaran" : "Sudah Di Bayar"}</Button>
             </Flex>
           </Box>
         ))}
@@ -69,7 +71,7 @@ const OrdersPage = () => {
 
 export default OrdersPage;
 
-const AddressModal: React.FC<OrdersType> = ({ accountName, address, email, name, phone, payment, userRekening}) => {
+const AddressModal: React.FC<OrdersType> = ({ accountName, address, email, name, phone, payment, userRekening }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
   const finalRef = useRef(null);
@@ -101,9 +103,9 @@ const AddressModal: React.FC<OrdersType> = ({ accountName, address, email, name,
               <Text>Email: <span style={{ fontWeight: 'bold' }}>{email}</span></Text>
               <Text>Alamat Lengkap: <span style={{ fontWeight: 'bold' }}>{address}</span></Text>
               <Flex gap={3} mt={5}>
-                  <Text>Metode Pembayaran: <span style={{ fontWeight: 'bold' }}>{payment}</span></Text>
-                  <Text>Nama Rekening: <span style={{ fontWeight: 'bold' }}>{userRekening}</span></Text>
-                </Flex>
+                <Text>Metode Pembayaran: <span style={{ fontWeight: 'bold' }}>{payment}</span></Text>
+                <Text>Nama Rekening: <span style={{ fontWeight: 'bold' }}>{userRekening}</span></Text>
+              </Flex>
             </div>
             <Flex justify={'end'} mt={10}>
               <Button>Cetak PDF</Button>

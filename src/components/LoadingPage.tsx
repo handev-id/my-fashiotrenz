@@ -13,7 +13,7 @@ const Loading = () => {
     <Center
       pos={"fixed"}
       zIndex={100}
-      bg={Colors.fourthirty}
+      bg={'#f3f3f3b5'}
       w={"full"}
       h={"100vh"}
       left={0}
